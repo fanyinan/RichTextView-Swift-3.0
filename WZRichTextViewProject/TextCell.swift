@@ -24,7 +24,7 @@ class TextCell: UITableViewCell {
     textView.textStyle = textStyle
     textView.shouldCached = true
     textView.interpreters = interpreters
-    contentView.addSubview(textView)
+//    contentView.addSubview(textView)
 
   }
   
@@ -43,7 +43,7 @@ class TextCell: UITableViewCell {
     let size = WZRichTextView.calculateSize(withText: "\(tag)" + text, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: contentView.frame.width)
 
     textView.frame.size = size
-    textView.text = "\(tag)" + text
+//    textView.text = "\(tag)" + text
   }
   
 }

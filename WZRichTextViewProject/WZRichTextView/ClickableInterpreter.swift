@@ -14,7 +14,7 @@ protocol ClickableInterpreterDelegate: NSObjectProtocol {
 
 class ClickableInterpreter: Interpreter {
   
-  var keyTextNormalForegroundColor: UIColor = UIColor.blue
+  var keyTextNormalForegroundColor: UIColor? = UIColor.blue
   var keyTextSelectedForegroundColor: UIColor = UIColor.blue
   var keyTextSelectedBackgroundColor: UIColor = UIColor.clear
   
@@ -23,7 +23,7 @@ class ClickableInterpreter: Interpreter {
   func interpret(richText: NSMutableAttributedString, withKeyAttributeName keyAttributeName: String) {
     
     let text = richText.string
-    let keyTextPattern = "<.+?>.+?</.+?>"
+    let keyTextPattern = "<.+?>.+?</.*?>"
     let keyTextRegular = try! NSRegularExpression(pattern: keyTextPattern)
     
     let keyWordPattern = "[^<>]+"
@@ -53,22 +53,27 @@ class ClickableInterpreter: Interpreter {
         
       }
       
-      guard "/\(keyWords[0])" == keyWords[2] else { continue }
+      guard "/\(keyWords[0])" == keyWords[2] || keyWords[2] == "/" else { continue }
       
-      let tag = keyWords[0]
+      let startTag = keyWords[0]
       let content = keyWords[1]
+      let endTag = keyWords[2]
+
       
-      let endTagLocation = range.location + tag.characters.count + content.characters.count + 2
-      let endTagLength = tag.characters.count + 3
+      let endTagLocation = range.location + startTag.characters.count + content.characters.count + 2
+      let endTagLength = endTag.characters.count + 2
       richText.deleteCharacters(in: NSRange(location: endTagLocation, length: endTagLength))
 
       let startTagLocation = range.location
-      let startTagLength = tag.characters.count + 2
+      let startTagLength = startTag.characters.count + 2
       richText.deleteCharacters(in: NSRange(location: startTagLocation, length: startTagLength))
 
-      richText.addAttribute(keyAttributeName, value: tag, range: NSRange(location: range.location, length: content.characters.count))
-      richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: range.location, length: content.characters.count))
+      richText.addAttribute(keyAttributeName, value: startTag, range: NSRange(location: range.location, length: content.characters.count))
+      
+      if let keyTextNormalForegroundColor = keyTextNormalForegroundColor {
+        richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: range.location, length: content.characters.count))
 
+      }
     }
   }
   
