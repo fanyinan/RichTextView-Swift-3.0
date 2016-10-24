@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Qmf-0P-u3K">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Qmf-0P-u3K">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller2-->
+        <!--View Demo View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController2" customModule="WZRichTextViewProject" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewDemoViewController" customModule="WZRichTextViewProject" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -19,11 +19,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UIY-sn-ugh"/>
+                    <navigationItem key="navigationItem" id="UIY-sn-ugh">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="oEH-0h-0DN">
+                            <connections>
+                                <action selector="test" destination="BYZ-38-t0r" id="srz-aR-N1v"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2162" y="116"/>
+            <point key="canvasLocation" x="2191" y="-121"/>
+        </scene>
+        <!--Table View Demo View Controller-->
+        <scene sceneID="HaR-j2-nEZ">
+            <objects>
+                <viewController id="5IQ-cF-c6P" customClass="TableViewDemoViewController" customModule="WZRichTextViewProject" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="E8o-zd-Tvt"/>
+                        <viewControllerLayoutGuide type="bottom" id="IfW-rm-bz2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wtc-G7-etY">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qz5-39-BGG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2190" y="531"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="xzm-Ri-Jul">
@@ -37,16 +61,36 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EC2-9d-M8G">
-                                <frame key="frameInset" minX="16" minY="97" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EC2-9d-M8G">
+                                <color key="backgroundColor" red="0.99215686321258545" green="0.59215688705444336" blue="0.7450980544090271" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Kmf-22-Y8G"/>
+                                    <constraint firstAttribute="width" constant="100" id="tvM-kE-7mi"/>
+                                </constraints>
+                                <state key="normal" title="View"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="xv6-ZR-OBE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PqL-70-ICx">
+                                <color key="backgroundColor" red="0.9843137264251709" green="0.65098041296005249" blue="0.17647059261798859" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="T3g-SD-jvO"/>
+                                    <constraint firstAttribute="width" constant="100" id="q8v-Jh-tdw"/>
+                                </constraints>
+                                <state key="normal" title="tableView"/>
+                                <connections>
+                                    <segue destination="5IQ-cF-c6P" kind="show" id="AgF-hX-mz3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PqL-70-ICx" firstAttribute="top" secondItem="EC2-9d-M8G" secondAttribute="bottom" constant="60" id="B12-cK-gVv"/>
+                            <constraint firstItem="EC2-9d-M8G" firstAttribute="leading" secondItem="rCB-Io-K8a" secondAttribute="leading" constant="30" id="F1g-aP-q3u"/>
+                            <constraint firstItem="EC2-9d-M8G" firstAttribute="top" secondItem="UoO-Gh-OWW" secondAttribute="bottom" constant="100" id="ejy-Hm-qlE"/>
+                            <constraint firstItem="PqL-70-ICx" firstAttribute="leading" secondItem="rCB-Io-K8a" secondAttribute="leading" constant="30" id="f87-13-qar"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mLa-na-l8p"/>
                 </viewController>
@@ -59,7 +103,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qmf-0P-u3K" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="ysd-FK-lqh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ysd-FK-lqh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

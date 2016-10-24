@@ -8,10 +8,9 @@
 
 import UIKit
 
-class ViewController2: UIViewController {
-
-  var tableView: UITableView!
-  var count = 100
+class ViewDemoViewController: UIViewController {
+  
+  var richTextView: WZRichTextView!
   
   let str3 = ""
   let str2 = "亲爱的帅哥(ID:71212013): 恭喜你成为71202013名来到收获爱情的用户。你所在的北京市有966614美女正在寻觅伴侣。据统计，在有头像、资料完整且验证了手机的用户能够成功找到对象的比例高达68.8%。别犹豫了，            <br>1、【<a href=\"1\"  style=\"color:red\">立即上传头像</a>】<br>            <br>2、【<a href=\"2\"  style=\"color:red\">立即完善资料</a>】<br>            <br>3、【<a href=\"3\" style=\"color:red\">立即验证手机</a>】<br>            <br>让自己靠近幸福的脚步再快一些吧！"
@@ -22,7 +21,7 @@ class ViewController2: UIViewController {
     super.viewDidLoad()
     
     setupUI()
-    
+
   }
 
   override func didReceiveMemoryWarning() {
@@ -41,7 +40,7 @@ class ViewController2: UIViewController {
     let htmlInterpreter = HTMLInterpreter()
     htmlInterpreter.isParserHerf = true
     
-    let interpreters: [Interpreter] = [htmlInterpreter, clickableInterpreter, EmojiInterpreter()]
+    let interpreters: [Interpreter] = [clickableInterpreter, EmojiInterpreter()]
     
     let textStyle = WZTextStyle()
     textStyle.backgroundColor = UIColor.green
@@ -50,7 +49,7 @@ class ViewController2: UIViewController {
     
 //    let size = WZRichTextView.calculateSize(withText: str3, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: view.frame.width)
     
-    let richTextView = WZRichTextView(frame: CGRect(x: 50, y: 50, width: 200, height: 300))
+    richTextView = WZRichTextView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
     richTextView.textStyle = textStyle
     richTextView.backgroundColor = UIColor.green
     richTextView.interpreters = interpreters
@@ -58,71 +57,17 @@ class ViewController2: UIViewController {
 //    richTextView.text = str
     richTextView.text = str1
     
-    tableView = UITableView(frame: view.bounds)
-    tableView.dataSource = self
-    tableView.delegate = self
-    tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-//    view.addSubview(tableView)
-    tableView.register(UINib(nibName: "TextCell", bundle: nil), forCellReuseIdentifier: "TextCell")
-    
-//    preload()
-    
+    richTextView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
   }
   
-  func preload() {
+  @IBAction func test() {
     
-    let start = CACurrentMediaTime()
-    let interpreters: [Interpreter] = [EmojiInterpreter(), ClickableInterpreter(), URLInterpreter()]
-    
-    let textStyle = WZTextStyle()
-    
-    for i in 0..<count {
-     
-      let size = WZRichTextView.calculateSize(withText: "\(i)\(str)", withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: UIScreen.main.bounds.width)
-      
-      WZRichTextView.preCreateRichText(withRichText: "\(i)\(str)", withTextStyle: textStyle, withInterpreters: interpreters, withSize: size)
-      
-    }
-    
-    print(CACurrentMediaTime() - start)
-    print("preload finish")
+    richTextView.text = "looolll[timg-4]loooo"
   }
 }
 
-extension ViewController2: UITableViewDataSource {
-
-  public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "TextCell", for: indexPath) as! TextCell
-    
-    cell.tag = indexPath.row
-    cell.setData(text: str)
-    
-    return cell
-  }
-
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-    return count
-  }
-
-}
-
-extension ViewController2: UITableViewDelegate {
-  
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    
-    let interpreters: [Interpreter] = [EmojiInterpreter(), ClickableInterpreter(), URLInterpreter()]
-    
-    let textStyle = WZTextStyle()
-    
-    let size = WZRichTextView.calculateSize(withText: "\(indexPath.row)" + str, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: UIScreen.main.bounds.width)
-    
-    return size.height
-  }
-}
-
-extension ViewController2: ClickableInterpreterDelegate {
+extension ViewDemoViewController: ClickableInterpreterDelegate {
   func didClick(withRichText richText: WZRichTextView, withKey key: String) {
     print(key)
   }

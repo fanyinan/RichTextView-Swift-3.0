@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		CF072BFA1D9F8D3200271B61 /* ClickableInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF072BF91D9F8D3200271B61 /* ClickableInterpreter.swift */; };
 		CF15B3721DBE11CE0085CC60 /* NSRange+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF15B3711DBE11CE0085CC60 /* NSRange+extension.swift */; };
+		CF15B3741DBE2E3F0085CC60 /* TableViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF15B3731DBE2E3F0085CC60 /* TableViewDemoViewController.swift */; };
 		CF1DBA251D94C9CF00B235B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1DBA241D94C9CF00B235B5 /* AppDelegate.swift */; };
-		CF1DBA271D94C9CF00B235B5 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1DBA261D94C9CF00B235B5 /* ViewController2.swift */; };
+		CF1DBA271D94C9CF00B235B5 /* ViewDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1DBA261D94C9CF00B235B5 /* ViewDemoViewController.swift */; };
 		CF1DBA2A1D94C9CF00B235B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF1DBA281D94C9CF00B235B5 /* Main.storyboard */; };
 		CF1DBA2C1D94C9CF00B235B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1DBA2B1D94C9CF00B235B5 /* Assets.xcassets */; };
 		CF1DBA2F1D94C9CF00B235B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF1DBA2D1D94C9CF00B235B5 /* LaunchScreen.storyboard */; };
@@ -31,9 +32,10 @@
 /* Begin PBXFileReference section */
 		CF072BF91D9F8D3200271B61 /* ClickableInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickableInterpreter.swift; sourceTree = "<group>"; };
 		CF15B3711DBE11CE0085CC60 /* NSRange+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+extension.swift"; sourceTree = "<group>"; };
+		CF15B3731DBE2E3F0085CC60 /* TableViewDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewDemoViewController.swift; sourceTree = "<group>"; };
 		CF1DBA211D94C9CF00B235B5 /* WZRichTextViewProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WZRichTextViewProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1DBA241D94C9CF00B235B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CF1DBA261D94C9CF00B235B5 /* ViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
+		CF1DBA261D94C9CF00B235B5 /* ViewDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDemoViewController.swift; sourceTree = "<group>"; };
 		CF1DBA291D94C9CF00B235B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF1DBA2B1D94C9CF00B235B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF1DBA2E1D94C9CF00B235B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -84,7 +86,8 @@
 			children = (
 				CF1DBA361D94C9F700B235B5 /* WZRichTextView */,
 				CF1DBA241D94C9CF00B235B5 /* AppDelegate.swift */,
-				CF1DBA261D94C9CF00B235B5 /* ViewController2.swift */,
+				CF1DBA261D94C9CF00B235B5 /* ViewDemoViewController.swift */,
+				CF15B3731DBE2E3F0085CC60 /* TableViewDemoViewController.swift */,
 				CF55E1061DB0A96300AD53DA /* ViewController.swift */,
 				CF1DBA391D98FE3300B235B5 /* TextCell.swift */,
 				CF1DBA3A1D98FE3300B235B5 /* TextCell.xib */,
@@ -193,11 +196,12 @@
 				CF22D6951DA08DDB00282391 /* URLInterpreter.swift in Sources */,
 				CFB1E4901DA75FF500EAFACC /* WZTextStyle.swift in Sources */,
 				CF38BC201D9D054A000B6ED7 /* Interpreter.swift in Sources */,
-				CF1DBA271D94C9CF00B235B5 /* ViewController2.swift in Sources */,
+				CF1DBA271D94C9CF00B235B5 /* ViewDemoViewController.swift in Sources */,
 				CF22D6A51DA1EF7100282391 /* UIColor+Extension.swift in Sources */,
 				CFB1E4921DA7953200EAFACC /* WZRichTextCache.swift in Sources */,
 				CF15B3721DBE11CE0085CC60 /* NSRange+extension.swift in Sources */,
 				CF55E1071DB0A96300AD53DA /* ViewController.swift in Sources */,
+				CF15B3741DBE2E3F0085CC60 /* TableViewDemoViewController.swift in Sources */,
 				CF072BFA1D9F8D3200271B61 /* ClickableInterpreter.swift in Sources */,
 				CF1DBA381D94CB3600B235B5 /* WZRichTextView.swift in Sources */,
 				CF1DBA3B1D98FE3300B235B5 /* TextCell.swift in Sources */,

@@ -24,9 +24,13 @@ class WZRichTextView: UIView {
     didSet{
       
       rectDict.removeAll()
+      setNeedsLayout()
       
-      drawContent()
     }
+  }
+  
+  override func layoutSubviews() {
+    drawContent()
   }
   
   func drawContent(highlightRange: NSRange = NSRange(location: 0, length: 0)) {
