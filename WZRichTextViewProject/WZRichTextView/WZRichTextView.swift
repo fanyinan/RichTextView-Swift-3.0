@@ -106,7 +106,7 @@ class WZRichTextView: UIView {
   private class func drawImage(withRichText text: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withSize size: CGSize, withKeyInfoDict keyInfoDict: [NSValue: (range: NSRange, attributeValue: Any, interpreter: Interpreter)], withCurrentClickRectValue currentClickRectValue: NSValue?) -> (UIImage?, [NSValue: (range: NSRange, attributeValue: Any, interpreter: Interpreter)]) {
     
     UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
-    let context = UIGraphicsGetCurrentContext()!
+    guard let context = UIGraphicsGetCurrentContext() else { return (nil, [:])}
     
     textStyle.backgroundColor.set()
     context.fill(CGRect(origin: CGPoint.zero, size: size))
