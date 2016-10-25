@@ -16,7 +16,8 @@ class WZRichTextView: UIView {
   
   var interpreters: [Interpreter] = []
   var textStyle = WZTextStyle()
-  var shouldCached = false
+  var cachedContent = false
+  var clearContentBeforeRedraw = false
   
   static let keyAttributeName = "keyAttributeName"
   
@@ -35,8 +36,7 @@ class WZRichTextView: UIView {
   
   func drawContent(highlightRange: NSRange = NSRange(location: 0, length: 0)) {
     
-    //非高亮的绘制首先将layer.contents设为nil
-    if highlightRange.location == 0 && highlightRange.length == 0 {
+    if clearContentBeforeRedraw {
       layer.contents = nil
     }
     
@@ -46,7 +46,7 @@ class WZRichTextView: UIView {
     let rectDict = self.rectDict
     let currentClickRectValue = self.currentClickRectValue
     
-    if shouldCached {
+    if cachedContent {
       
       if let image = WZRichTextCache.sharedCache.getRichTextImage(withRichText: text, withTextStyle: textStyle, withMaxWidth: size.width, withHighlightRange: highlightRange), let keyInfo = WZRichTextCache.sharedCache.getRichTextKeyInfo(withRichText: text, withTextStyle: textStyle, withMaxWidth: frame.width) {
         
@@ -67,7 +67,7 @@ class WZRichTextView: UIView {
       
       guard let _image = image else { return }
       
-      if self.shouldCached {
+      if self.cachedContent {
         
         WZRichTextCache.sharedCache.cachedRichTextImage(withRichText: text, withTextStyle: textStyle, withMaxWidth: size.width, withHighlightRange: highlightRange, image: _image)
         WZRichTextCache.sharedCache.cachedRichTextKeyInfo(withRichText: text, withTextStyle: textStyle, withMaxWidth: size.width, withKeyInfo: rectDict)
@@ -75,7 +75,7 @@ class WZRichTextView: UIView {
       }
       
       //当第一次点击后马上抬起，由于缓存的关系，会导致点击时的image在touchend之后绘制完成，从而抬起后会显示touchdown的image
-      if self.layer.contents != nil && self.currentClickRectValue == nil {
+      if !(highlightRange.location == 0 && highlightRange.length == 0) && self.currentClickRectValue == nil {
         return
       }
       

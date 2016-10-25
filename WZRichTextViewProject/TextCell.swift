@@ -22,7 +22,8 @@ class TextCell: UITableViewCell {
     
     textView = WZRichTextView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: contentView.frame.height))
     textView.textStyle = textStyle
-    textView.shouldCached = true
+    textView.cachedContent = true
+    textView.clearContentBeforeRedraw = true
     textView.interpreters = interpreters
     contentView.addSubview(textView)
 

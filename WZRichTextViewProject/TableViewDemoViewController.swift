@@ -38,7 +38,7 @@ class TableViewDemoViewController: UIViewController {
     view.addSubview(tableView)
     tableView.register(UINib(nibName: "TextCell", bundle: nil), forCellReuseIdentifier: "TextCell")
     
-    preload()
+//    preload()
     
   }
   

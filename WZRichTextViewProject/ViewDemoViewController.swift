@@ -47,9 +47,10 @@ class ViewDemoViewController: UIViewController {
     textStyle.isVerticalCenter = true
     textStyle.textAlignment = .center
     
-//    let size = WZRichTextView.calculateSize(withText: str3, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: view.frame.width)
+    let size = WZRichTextView.calculateSize(withText: str1, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: view.frame.width)
     
-    richTextView = WZRichTextView(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height))
+    richTextView = WZRichTextView(frame: CGRect(x: 0, y: 100, width: size.width, height: size.height))
+//    richTextView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     richTextView.textStyle = textStyle
     richTextView.backgroundColor = UIColor.green
     richTextView.interpreters = interpreters
@@ -57,13 +58,11 @@ class ViewDemoViewController: UIViewController {
 //    richTextView.text = str
     richTextView.text = str1
     
-    richTextView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
   }
   
   @IBAction func test() {
     
-    richTextView.text = "looolll[timg-4]loooo"
   }
 }
 
