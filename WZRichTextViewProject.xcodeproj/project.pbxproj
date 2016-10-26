@@ -23,6 +23,7 @@
 		CF22D6A51DA1EF7100282391 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF22D6A41DA1EF7100282391 /* UIColor+Extension.swift */; };
 		CF38BC1E1D9D053B000B6ED7 /* EmojiInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF38BC1D1D9D053B000B6ED7 /* EmojiInterpreter.swift */; };
 		CF38BC201D9D054A000B6ED7 /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF38BC1F1D9D054A000B6ED7 /* Interpreter.swift */; };
+		CF4A70A71DC03FB30061BECC /* WZRichTextRunInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4A70A61DC03FB30061BECC /* WZRichTextRunInfo.swift */; };
 		CF55E1071DB0A96300AD53DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF55E1061DB0A96300AD53DA /* ViewController.swift */; };
 		CFB1E4901DA75FF500EAFACC /* WZTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB1E48F1DA75FF500EAFACC /* WZTextStyle.swift */; };
 		CFB1E4921DA7953200EAFACC /* WZRichTextCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB1E4911DA7953200EAFACC /* WZRichTextCache.swift */; };
@@ -48,6 +49,7 @@
 		CF22D6A41DA1EF7100282391 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		CF38BC1D1D9D053B000B6ED7 /* EmojiInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiInterpreter.swift; sourceTree = "<group>"; };
 		CF38BC1F1D9D054A000B6ED7 /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
+		CF4A70A61DC03FB30061BECC /* WZRichTextRunInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZRichTextRunInfo.swift; sourceTree = "<group>"; };
 		CF55E1061DB0A96300AD53DA /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CFB1E48F1DA75FF500EAFACC /* WZTextStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZTextStyle.swift; sourceTree = "<group>"; };
 		CFB1E4911DA7953200EAFACC /* WZRichTextCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZRichTextCache.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				CF38BC1F1D9D054A000B6ED7 /* Interpreter.swift */,
 				CFB1E48F1DA75FF500EAFACC /* WZTextStyle.swift */,
 				CFB1E4911DA7953200EAFACC /* WZRichTextCache.swift */,
+				CF4A70A61DC03FB30061BECC /* WZRichTextRunInfo.swift */,
 				CF22D6A21DA1E7E200282391 /* timg-4.png */,
 				CF15B3711DBE11CE0085CC60 /* NSRange+extension.swift */,
 			);
@@ -205,6 +208,7 @@
 				CF072BFA1D9F8D3200271B61 /* ClickableInterpreter.swift in Sources */,
 				CF1DBA381D94CB3600B235B5 /* WZRichTextView.swift in Sources */,
 				CF1DBA3B1D98FE3300B235B5 /* TextCell.swift in Sources */,
+				CF4A70A71DC03FB30061BECC /* WZRichTextRunInfo.swift in Sources */,
 				CF38BC1E1D9D053B000B6ED7 /* EmojiInterpreter.swift in Sources */,
 				CF1DBA251D94C9CF00B235B5 /* AppDelegate.swift in Sources */,
 				CFD3A1501DB9B21E0098966B /* HTMLInterpreter.swift in Sources */,

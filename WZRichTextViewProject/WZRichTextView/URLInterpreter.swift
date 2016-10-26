@@ -8,7 +8,7 @@
 
 import UIKit
 
-class URLInterpreter: Interpreter {
+class URLInterpreter: NSObject, Interpreter {
   
   var keyTextNormalBackgroundColor: UIColor = UIColor.blue
   var keyTextSelectedBackgroundColor: UIColor = UIColor.green

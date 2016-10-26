@@ -4,29 +4,51 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WZRichTextViewProject/ViewDemoViewController.swift"
-            timestampString = "499054710.490333"
+            filePath = "WZRichTextViewProject/WZRichTextView/WZRichTextView.swift"
+            timestampString = "499099986.317933"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
-            landmarkName = "test()"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "drawContent(highlightRange:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WZRichTextViewProject.WZRichTextView.drawContent (highlightRange : __C._NSRange) -&gt; ()"
+                  moduleName = "WZRichTextViewProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fanyinan/Documents/MyProject/WZRichTextViewProject/WZRichTextViewProject/WZRichTextView/WZRichTextView.swift"
+                  timestampString = "499093825.727422"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "752">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "WZRichTextViewProject.WZRichTextView.drawContent (highlightRange : __C._NSRange) -&gt; ()"
+                  moduleName = "WZRichTextViewProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fanyinan/Documents/MyProject/WZRichTextViewProject/WZRichTextViewProject/WZRichTextView/WZRichTextView.swift"
+                  timestampString = "499093825.728991"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "920">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

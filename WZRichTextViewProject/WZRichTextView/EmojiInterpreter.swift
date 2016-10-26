@@ -15,7 +15,7 @@ struct FaceData {
   var faceLocation = 0
 }
 
-class EmojiInterpreter: Interpreter {
+class EmojiInterpreter: NSObject, Interpreter {
   
   var font = UIFont.systemFont(ofSize: 15)
   var imageWidth: CGFloat = 18

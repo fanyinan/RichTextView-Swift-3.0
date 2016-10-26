@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol Interpreter {
+protocol Interpreter: NSObjectProtocol {
   
   func interpret(richText: NSMutableAttributedString, withKeyAttributeName keyAttributeName: String)
   
@@ -26,4 +26,5 @@ extension Interpreter {
   func didClick(withRichText richText: WZRichTextView, withAttributeValue attributeValue: Any) {}
   
   func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, inRanges ranges: [NSRange]) {}
+  
 }

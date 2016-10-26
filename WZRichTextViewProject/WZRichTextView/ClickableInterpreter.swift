@@ -12,7 +12,7 @@ protocol ClickableInterpreterDelegate: NSObjectProtocol {
   func didClick(withRichText richText: WZRichTextView, withKey key: String)
 }
 
-class ClickableInterpreter: Interpreter {
+class ClickableInterpreter: NSObject, Interpreter {
   
   var keyTextNormalForegroundColor: UIColor? = UIColor.blue
   var keyTextSelectedForegroundColor: UIColor = UIColor.blue
@@ -59,13 +59,13 @@ class ClickableInterpreter: Interpreter {
       let content = keyWords[1]
       let endTag = keyWords[2]
 
-      
-      let endTagLocation = range.location + startTag.characters.count + content.characters.count + 2
-      let endTagLength = endTag.characters.count + 2
+      let markLength = NSString(string: "<>").length
+      let endTagLocation = range.location + startTag.characters.count + content.characters.count + markLength
+      let endTagLength = endTag.characters.count + markLength
       richText.deleteCharacters(in: NSRange(location: endTagLocation, length: endTagLength))
 
       let startTagLocation = range.location
-      let startTagLength = startTag.characters.count + 2
+      let startTagLength = startTag.characters.count + markLength
       richText.deleteCharacters(in: NSRange(location: startTagLocation, length: startTagLength))
 
       richText.addAttribute(keyAttributeName, value: startTag, range: NSRange(location: range.location, length: content.characters.count))
