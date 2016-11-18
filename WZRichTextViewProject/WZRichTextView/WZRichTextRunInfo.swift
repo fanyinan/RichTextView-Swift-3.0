@@ -12,12 +12,12 @@ class WZRichTextRunInfo: NSObject {
   
   var range: NSRange
   var attributeValue: Any
-  weak var interpreter: Interpreter?
+  var classType: AnyClass
   
-  init(range: NSRange, attributeValue: Any, interpreter: Interpreter) {
+  init(range: NSRange, attributeValue: Any, classType: AnyClass) {
     self.range = range
     self.attributeValue = attributeValue
-    self.interpreter = interpreter
+    self.classType = classType
     super.init()
   }
 }

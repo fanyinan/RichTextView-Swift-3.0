@@ -18,11 +18,21 @@ class WZTextStyle: Hashable {
   var isVerticalCenter = false
   
   var hashValue: Int {
-    return Int(lineSpace) ^ Int(font.pointSize) ^ textColor.hashValue ^ backgroundColor.hashValue
+    
+    let hashComponents = [Int(lineSpace), Int(font.pointSize), textColor.hashValue, backgroundColor.hashValue, Int(textAlignment.rawValue), isVerticalCenter.hashValue]
+    
+    var hash = 0
+    
+    for (index, component) in hashComponents.enumerated() {
+      
+      hash ^= (component << index)
+    }
+    
+    return hash
   }
-
+  
   static func ==(lhs: WZTextStyle, rhs: WZTextStyle) -> Bool {
-    return lhs.font == rhs.font && lhs.lineSpace == rhs.lineSpace && lhs.backgroundColor == rhs.backgroundColor && lhs.textColor == rhs.textColor
+    return lhs.hashValue == rhs.hashValue
   }
-
+  
 }

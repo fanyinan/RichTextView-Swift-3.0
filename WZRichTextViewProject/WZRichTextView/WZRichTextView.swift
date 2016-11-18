@@ -49,7 +49,7 @@ class WZRichTextView: UIView {
     
     if cachedContent {
       
-      if let image = WZRichTextCache.sharedCache.getRichTextImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width, withHighlightRange: highlightRange), let keyInfo = WZRichTextCache.sharedCache.getRichTextKeyInfo(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: frame.width) {
+      if let image = WZRichTextCache.sharedCache.getRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width, with: highlightRange), let keyInfo = WZRichTextCache.sharedCache.getRichTextKeyInfo(with: text, with: textStyle, with: interpreters, with: frame.width) {
         
         layer.contents = image.cgImage
         self.rectDict = keyInfo
@@ -61,17 +61,17 @@ class WZRichTextView: UIView {
     DispatchQueue.global().async {
       
       self.clickable = false
-
+      
       let (image, rectDict) = WZRichTextView.drawImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withSize: size, withKeyInfoDict: rectDict, withCurrentClickRectValue: currentClickRectValue)
-
+      
       self.clickable = true
       
       guard let _image = image else { return }
       
       if self.cachedContent {
         
-        WZRichTextCache.sharedCache.cachedRichTextImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width, withHighlightRange: highlightRange, image: _image)
-        WZRichTextCache.sharedCache.cachedRichTextKeyInfo(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width, withKeyInfo: rectDict)
+        WZRichTextCache.sharedCache.cachedRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width, with: highlightRange, image: _image)
+        WZRichTextCache.sharedCache.cachedRichTextKeyInfo(with: text, with: textStyle, with: interpreters, with: size.width, with: rectDict)
         
       }
       
@@ -80,13 +80,13 @@ class WZRichTextView: UIView {
         return
       }
       
-      let key = WZRichTextCache.sharedCache.calculateKey(withKeyType: .content, withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width, highlightRange: highlightRange) as! Int
+      let key = WZRichTextCache.sharedCache.calculateKey(with: text, with: textStyle, with: interpreters, with: size.width, with: highlightRange) as! Int
       
       DispatchQueue.main.async {
         
         //防止图片错位
-        guard key == (WZRichTextCache.sharedCache.calculateKey(withKeyType: .content, withRichText: self.text, withTextStyle: self.textStyle, withInterpreters: interpreters, withMaxWidth: self.frame.width, highlightRange:highlightRange) as! Int) else { return }
-
+        guard key == (WZRichTextCache.sharedCache.calculateKey(with: self.text, with: self.textStyle, with: interpreters, with: self.frame.width, with:highlightRange) as! Int) else { return }
+        
         self.layer.contents = image?.cgImage
         self.rectDict = rectDict
         
@@ -96,15 +96,15 @@ class WZRichTextView: UIView {
   
   class func preCreateRichText(withRichText text: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withSize size: CGSize) {
     
-    if WZRichTextCache.sharedCache.getRichTextImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width) != nil && WZRichTextCache.sharedCache.getRichTextKeyInfo(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width) != nil {
+    if WZRichTextCache.sharedCache.getRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width) != nil && WZRichTextCache.sharedCache.getRichTextKeyInfo(with: text, with: textStyle, with: interpreters, with: size.width) != nil {
       return
     }
     
     let (image, rectDict) = self.drawImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withSize: size,    withKeyInfoDict: [:], withCurrentClickRectValue: nil)
     
     guard let _image = image else { return }
-    WZRichTextCache.sharedCache.cachedRichTextImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width, image: _image)
-    WZRichTextCache.sharedCache.cachedRichTextKeyInfo(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: size.width, withKeyInfo: rectDict)
+    WZRichTextCache.sharedCache.cachedRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width, image: _image)
+    WZRichTextCache.sharedCache.cachedRichTextKeyInfo(with: text, with: textStyle, with: interpreters, with: size.width, with: rectDict)
     
   }
   
@@ -122,9 +122,9 @@ class WZRichTextView: UIView {
     
     let attributedString = WZRichTextView.createAttributedString(withText: text, withTextStyle: textStyle, withInterpretes: interpreters)
     
-    if let clickRectValue = currentClickRectValue, let range = keyInfoDict[clickRectValue]?.range {
+    if let clickRectValue = currentClickRectValue, let range = keyInfoDict[clickRectValue]?.range, let classType = keyInfoDict[clickRectValue]?.classType {
       
-      keyInfoDict[clickRectValue]?.interpreter?.editAttributedStringOnTouchDown(richText: attributedString, inRanges: [range])
+      interpreters.filter({$0.isKind(of: classType)}).first?.editAttributedStringOnTouchDown(richText: attributedString, inRanges: [range])
       
     }
     
@@ -183,7 +183,7 @@ class WZRichTextView: UIView {
           
           guard let keyAttributeValue = attributedString.attribute(attributeName, at: runRange.location, effectiveRange: &attributeRange) else { continue }
           
-          currentKeyInfoDict[NSValue(cgRect: touchableRect)] = WZRichTextRunInfo(range: attributeRange, attributeValue: keyAttributeValue, interpreter: interpreter)
+          currentKeyInfoDict[NSValue(cgRect: touchableRect)] = WZRichTextRunInfo(range: attributeRange, attributeValue: keyAttributeValue, classType: type(of: interpreter))
           
           interpreter.draw(inContext: context, withRunRect: runRect, withKeyAttributeValue: keyAttributeValue)
           
@@ -223,7 +223,9 @@ class WZRichTextView: UIView {
     self.currentClickRectValue = nil
     drawContent()
     
-    rectDict[currentClickRectValue]?.interpreter?.didClick(withRichText: self, withAttributeValue: attributeValue)
+    guard let classType = rectDict[currentClickRectValue]?.classType else { return }
+    
+    interpreters.filter({$0.isKind(of: classType)}).first?.didClick(withRichText: self, withAttributeValue: attributeValue)
     
   }
   
@@ -236,7 +238,7 @@ class WZRichTextView: UIView {
   
   class func  calculateSize(withText text: String, withTextStyle textStyle: WZTextStyle, withInterpretes interpreters: [Interpreter],  withMaxWidth maxWidth: CGFloat) -> CGSize {
     
-    if let size = WZRichTextCache.sharedCache.getRichTextSize(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth) {
+    if let size = WZRichTextCache.sharedCache.getRichTextSize(with: text, with: textStyle, with: interpreters, with: maxWidth) {
       return size
     }
     
@@ -255,7 +257,7 @@ class WZRichTextView: UIView {
     
     size.width = linesCount == 1 ? size.width : maxWidth
     
-    WZRichTextCache.sharedCache.cachedRichTextSize(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth, withSize: size)
+    WZRichTextCache.sharedCache.cachedRichTextSize(with: text, with: textStyle, with: interpreters, with: maxWidth, with: size)
     
     return size
   }

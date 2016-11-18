@@ -33,21 +33,21 @@ class ViewDemoViewController: UIViewController {
     
     let clickableInterpreter = ClickableInterpreter()
     clickableInterpreter.delegate = self
-    clickableInterpreter.keyTextNormalForegroundColor = nil
+//    clickableInterpreter.keyTextNormalForegroundColor = nil
     clickableInterpreter.keyTextSelectedBackgroundColor = UIColor.orange
     clickableInterpreter.keyTextSelectedForegroundColor = UIColor.red
     
     let htmlInterpreter = HTMLInterpreter()
     htmlInterpreter.isParserHerf = true
     
-    let interpreters: [Interpreter] = [htmlInterpreter, clickableInterpreter]
+    let interpreters: [Interpreter] = [EmojiInterpreter(), clickableInterpreter]
     
     let textStyle = WZTextStyle()
     textStyle.backgroundColor = UIColor.green
     textStyle.isVerticalCenter = true
 //    textStyle.textAlignment = .center
     
-    let size = WZRichTextView.calculateSize(withText: str2, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: view.frame.width)
+    let size = WZRichTextView.calculateSize(withText: str1, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: view.frame.width)
     
     richTextView = WZRichTextView(frame: CGRect(x: 0, y: 100, width: size.width, height: size.height))
 //    richTextView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -57,7 +57,7 @@ class ViewDemoViewController: UIViewController {
     richTextView.cachedContent = true
     view.addSubview(richTextView)
 //    richTextView.text = str
-    richTextView.text = str2
+    richTextView.text = str1
     
  
     print(self)

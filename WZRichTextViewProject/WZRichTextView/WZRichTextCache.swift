@@ -8,13 +8,6 @@
 
 import UIKit
 
-enum WZCacheKeyType {
-
-  case content
-  case size
-  case textInfo
-}
-
 class WZRichTextCache {
   
   static var sharedCache = WZRichTextCache()
@@ -28,58 +21,50 @@ class WZRichTextCache {
     richTextImageCache.countLimit = 500
   }
   
-  func cachedRichTextSize(withRichText richText: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withMaxWidth maxWidth: CGFloat, withSize size: CGSize) {
+  func cachedRichTextSize(with richText: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with maxWidth: CGFloat, with size: CGSize) {
     
-    let key = calculateKey(withKeyType: .size, withRichText: richText, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth)
+    let key = calculateKey(with: richText, with: textStyle, with: interpreters, with: maxWidth)
     richTextHeightCache.setObject(size as AnyObject, forKey: key)
   }
   
-  func getRichTextSize(withRichText richText: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withMaxWidth maxWidth: CGFloat) -> CGSize? {
+  func getRichTextSize(with richText: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with maxWidth: CGFloat) -> CGSize? {
     
-    let key = calculateKey(withKeyType: .size, withRichText: richText, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth)
+    let key = calculateKey(with: richText, with: textStyle, with: interpreters, with: maxWidth)
     return richTextHeightCache.object(forKey: key) as? CGSize
   }
   
-  func cachedRichTextImage(withRichText richText: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withMaxWidth maxWidth: CGFloat, withHighlightRange highlightRange: NSRange = NSRange(location: 0, length: 0), image: UIImage) {
+  func cachedRichTextImage(with richText: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with maxWidth: CGFloat, with highlightRange: NSRange = NSRange(location: 0, length: 0), image: UIImage) {
     
-    let key = calculateKey(withKeyType: .content, withRichText: richText, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth, highlightRange: highlightRange)
+    let key = calculateKey(with: richText, with: textStyle, with: interpreters, with: maxWidth, with: highlightRange)
     richTextImageCache.setObject(image, forKey: key)
   }
   
-  func getRichTextImage(withRichText richText: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withMaxWidth maxWidth: CGFloat, withHighlightRange highlightRange: NSRange = NSRange(location: 0, length: 0)) -> UIImage? {
+  func getRichTextImage(with richText: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with maxWidth: CGFloat, with highlightRange: NSRange = NSRange(location: 0, length: 0)) -> UIImage? {
     
-    let key = calculateKey(withKeyType: .content, withRichText: richText, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth, highlightRange: highlightRange)
+    let key = calculateKey(with: richText, with: textStyle, with: interpreters, with: maxWidth, with: highlightRange)
     return richTextImageCache.object(forKey: key)
   }
   
-  func cachedRichTextKeyInfo(withRichText richText: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withMaxWidth maxWidth: CGFloat, withKeyInfo keyInfo: [NSValue: WZRichTextRunInfo]) {
+  func cachedRichTextKeyInfo(with richText: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with maxWidth: CGFloat, with keyInfo: [NSValue: WZRichTextRunInfo]) {
     
-    let key = calculateKey(withKeyType: .textInfo, withRichText: richText, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth)
+    let key = calculateKey(with: richText, with: textStyle, with: interpreters, with: maxWidth)
     richTextKeyInfoCache.setObject(keyInfo as AnyObject, forKey: key)
   }
   
-  func getRichTextKeyInfo(withRichText richText: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withMaxWidth maxWidth: CGFloat) -> [NSValue: WZRichTextRunInfo]? {
+  func getRichTextKeyInfo(with richText: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with maxWidth: CGFloat) -> [NSValue: WZRichTextRunInfo]? {
     
-    let key = calculateKey(withKeyType: .textInfo, withRichText: richText, withTextStyle: textStyle, withInterpreters: interpreters, withMaxWidth: maxWidth)
+    let key = calculateKey(with: richText, with: textStyle, with: interpreters, with: maxWidth)
     
     guard let rectInfo = richTextKeyInfoCache.object(forKey: key) as? [NSValue: WZRichTextRunInfo] else { return nil }
-    
-    for (_, runInfo) in rectInfo {
-      
-      if runInfo.interpreter == nil {
-        
-        richTextKeyInfoCache.removeObject(forKey: key)
-        return nil
-      }
-    }
     
     return rectInfo
   }
   
-  func calculateKey(withKeyType keyType: WZCacheKeyType, withRichText richText: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withMaxWidth maxWidth: CGFloat, highlightRange: NSRange = NSRange(location: 0, length: 0)) -> AnyObject {
+  func calculateKey(with richText: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with maxWidth: CGFloat, with highlightRange: NSRange = NSRange(location: 0, length: 0)) -> AnyObject {
     
     var interpreterKey = 0
     
+    //确定interpreter的顺序
     for (index, interpreter) in interpreters.enumerated() {
       
       let type: String = "\(type(of: interpreter))"
@@ -88,7 +73,7 @@ class WZRichTextCache {
       
     }
     
-    let key = (richText.hashValue << 10) ^ (interpreterKey << 5) ^ textStyle.hashValue ^ Int(maxWidth * CGFloat(100)) ^ highlightRange.location
+    let key = richText.hashValue ^ (interpreterKey ^ textStyle.hashValue ^ Int(maxWidth * CGFloat(100)) ^ highlightRange.location) << 10
     
     return key as AnyObject
   }
