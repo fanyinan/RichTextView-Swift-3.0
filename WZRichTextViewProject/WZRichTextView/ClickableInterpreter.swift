@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ClickableInterpreterDelegate: NSObjectProtocol {
-  func didClick(withRichText richText: WZRichTextView, withKey key: String)
+  func didClick(with richTextView: WZRichTextView, with key: String)
 }
 
 class ClickableInterpreter: NSObject, Interpreter {
@@ -20,7 +20,7 @@ class ClickableInterpreter: NSObject, Interpreter {
   
   weak var delegate: ClickableInterpreterDelegate?
   
-  func interpret(richText: NSMutableAttributedString, withKeyAttributeName keyAttributeName: String) {
+  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
     let keyTextPattern = "<.+?>.+?</.*?>"
@@ -77,11 +77,11 @@ class ClickableInterpreter: NSObject, Interpreter {
     }
   }
   
-  func didClick(withRichText richText: WZRichTextView, withAttributeValue attributeValue: Any) {
-    delegate?.didClick(withRichText: richText, withKey: attributeValue as! String)
+  func didClick(with richTextView: WZRichTextView, withA attributeValue: Any) {
+    delegate?.didClick(with: richTextView, with: attributeValue as! String)
   }
   
-  func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, inRanges ranges: [NSRange]) {
+  func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, in ranges: [NSRange]) {
     
     for range in ranges {
       

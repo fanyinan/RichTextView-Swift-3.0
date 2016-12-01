@@ -12,7 +12,7 @@ class HTMLInterpreter: NSObject, Interpreter {
   
   var isParserHerf = false
 
-  func interpret(richText: NSMutableAttributedString, withKeyAttributeName keyAttributeName: String) {
+  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
     

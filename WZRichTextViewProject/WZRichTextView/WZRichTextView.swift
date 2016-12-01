@@ -124,7 +124,7 @@ class WZRichTextView: UIView {
     
     if let clickRectValue = currentClickRectValue, let range = keyInfoDict[clickRectValue]?.range, let classType = keyInfoDict[clickRectValue]?.classType {
       
-      interpreters.filter({$0.isKind(of: classType)}).first?.editAttributedStringOnTouchDown(richText: attributedString, inRanges: [range])
+      interpreters.filter({$0.isKind(of: classType)}).first?.editAttributedStringOnTouchDown(with: attributedString, in: [range])
       
     }
     
@@ -171,8 +171,8 @@ class WZRichTextView: UIView {
         touchableRect.origin.y -= textStyle.lineSpace / 2
         touchableRect.size.height += textStyle.lineSpace
         
-        //        UIColor.random.withAlphaComponent(0.5).setFill()
-        //        context.fill(runRect)
+        UIColor.random.withAlphaComponent(0.5).setFill()
+        context.fill(runRect)
         
         for interpreter in interpreters {
           
@@ -185,7 +185,7 @@ class WZRichTextView: UIView {
           
           currentKeyInfoDict[NSValue(cgRect: touchableRect)] = WZRichTextRunInfo(range: attributeRange, attributeValue: keyAttributeValue, classType: type(of: interpreter))
           
-          interpreter.draw(inContext: context, withRunRect: runRect, withKeyAttributeValue: keyAttributeValue)
+          interpreter.draw(in: context, with: runRect, with: keyAttributeValue)
           
         }
       }
@@ -225,7 +225,7 @@ class WZRichTextView: UIView {
     
     guard let classType = rectDict[currentClickRectValue]?.classType else { return }
     
-    interpreters.filter({$0.isKind(of: classType)}).first?.didClick(withRichText: self, withAttributeValue: attributeValue)
+    interpreters.filter({$0.isKind(of: classType)}).first?.didClick(with: self, with: attributeValue)
     
   }
   
@@ -287,7 +287,7 @@ class WZRichTextView: UIView {
     
     for interpreter in interpreters {
       let type = type(of: interpreter)
-      interpreter.interpret(richText: attributedString, withKeyAttributeName: "\(WZRichTextView.keyAttributeName)-\(type)")
+      interpreter.interpret(with: attributedString, with: "\(WZRichTextView.keyAttributeName)-\(type)")
     }
     
     return attributedString

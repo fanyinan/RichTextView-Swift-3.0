@@ -45,7 +45,7 @@ class TableViewDemoViewController: UIViewController {
   func preload() {
     
     let start = CACurrentMediaTime()
-    let interpreters: [Interpreter] = [EmojiInterpreter(), ClickableInterpreter(), URLInterpreter()]
+    let interpreters: [Interpreter] = [PictureInterpreter(), ClickableInterpreter(), URLInterpreter()]
     
     let textStyle = WZTextStyle()
     
@@ -86,7 +86,7 @@ extension TableViewDemoViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     
-    let interpreters: [Interpreter] = [EmojiInterpreter(), ClickableInterpreter(), URLInterpreter()]
+    let interpreters: [Interpreter] = [PictureInterpreter(), ClickableInterpreter(), URLInterpreter()]
     
     let textStyle = WZTextStyle()
     
@@ -97,7 +97,7 @@ extension TableViewDemoViewController: UITableViewDelegate {
 }
 
 extension TableViewDemoViewController: ClickableInterpreterDelegate {
-  func didClick(withRichText richText: WZRichTextView, withKey key: String) {
+  func didClick(with richText: WZRichTextView, with key: String) {
     print(key)
   }
 }

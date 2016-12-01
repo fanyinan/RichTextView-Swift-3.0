@@ -13,7 +13,7 @@ class URLInterpreter: NSObject, Interpreter {
   var keyTextNormalBackgroundColor: UIColor = UIColor.blue
   var keyTextSelectedBackgroundColor: UIColor = UIColor.green
 
-  func interpret(richText: NSMutableAttributedString, withKeyAttributeName keyAttributeName: String) {
+  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
     let pattern = "(ht|f)tp(s?)://[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-.?,'/\\+&amp;%$#_]*)?"
@@ -33,7 +33,7 @@ class URLInterpreter: NSObject, Interpreter {
     }
   }
   
-  func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, inRanges ranges: [NSRange]) {
+  func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, in ranges: [NSRange]) {
     
     for range in ranges {
       
@@ -42,7 +42,7 @@ class URLInterpreter: NSObject, Interpreter {
     }
   }
   
-  func didClick(withRichText richText: WZRichTextView, withAttributeValue attributeValue: Any) {
+  func didClick(with richTextView: WZRichTextView, withA attributeValue: Any) {
     
     print(attributeValue)
     

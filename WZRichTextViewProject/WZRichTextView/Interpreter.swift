@@ -10,21 +10,21 @@ import UIKit
 
 protocol Interpreter: NSObjectProtocol {
   
-  func interpret(richText: NSMutableAttributedString, withKeyAttributeName keyAttributeName: String)
+  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String)
   
-  func draw(inContext context: CGContext, withRunRect runRect: CGRect, withKeyAttributeValue keyAttributeValue: Any)
+  func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any)
   
-  func didClick(withRichText richText: WZRichTextView, withAttributeValue attributeValue: Any)
+  func didClick(with richTextView: WZRichTextView, with attributeValue: Any)
   
-  func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, inRanges ranges: [NSRange])
+  func editAttributedStringOnTouchDown(with richText: NSMutableAttributedString, in ranges: [NSRange])
 }
 
 extension Interpreter {
   
-  func draw(inContext context: CGContext, withRunRect runRect: CGRect, withKeyAttributeValue keyAttributeValue: Any) {}
+  func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any){}
 
-  func didClick(withRichText richText: WZRichTextView, withAttributeValue attributeValue: Any) {}
-  
-  func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, inRanges ranges: [NSRange]) {}
+  func didClick(with richTextView: WZRichTextView, with attributeValue: Any){}
+
+  func editAttributedStringOnTouchDown(with richText: NSMutableAttributedString, in ranges: [NSRange]){}
   
 }

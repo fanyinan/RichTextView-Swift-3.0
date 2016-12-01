@@ -16,7 +16,7 @@ class TextCell: UITableViewCell {
     super.awakeFromNib()
     // Initialization code
     
-    let interpreters: [Interpreter] = [EmojiInterpreter(), ClickableInterpreter(), URLInterpreter()]
+    let interpreters: [Interpreter] = [PictureInterpreter(), ClickableInterpreter(), URLInterpreter()]
     
     let textStyle = WZTextStyle()
     
@@ -37,7 +37,7 @@ class TextCell: UITableViewCell {
   
   func setData(text: String) {
     
-    let interpreters: [Interpreter] = [EmojiInterpreter(), ClickableInterpreter(), URLInterpreter()]
+    let interpreters: [Interpreter] = [PictureInterpreter(), ClickableInterpreter(), URLInterpreter()]
     
     let textStyle = WZTextStyle()
     
