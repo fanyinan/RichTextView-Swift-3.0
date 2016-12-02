@@ -77,7 +77,7 @@ class ClickableInterpreter: NSObject, Interpreter {
     }
   }
   
-  func didClick(with richTextView: WZRichTextView, withA attributeValue: Any) {
+  func didClick(with richTextView: WZRichTextView, with attributeValue: Any) {
     delegate?.didClick(with: richTextView, with: attributeValue as! String)
   }
   

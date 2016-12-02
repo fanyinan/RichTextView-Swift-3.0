@@ -51,9 +51,9 @@ class TableViewDemoViewController: UIViewController {
     
     for i in 0..<count {
       
-      let size = WZRichTextView.calculateSize(withText: "\(i)\(str)", withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: UIScreen.main.bounds.width)
+      let size = WZRichTextView.calculateSize(with: "\(i)\(str)", with: textStyle, with: interpreters, with: UIScreen.main.bounds.width)
       
-      WZRichTextView.preCreateRichText(withRichText: "\(i)\(str)", withTextStyle: textStyle, withInterpreters: interpreters, withSize: size)
+      WZRichTextView.preCreateRichText(with: "\(i)\(str)", with: textStyle, with: interpreters, with: size)
       
     }
     
@@ -90,7 +90,7 @@ extension TableViewDemoViewController: UITableViewDelegate {
     
     let textStyle = WZTextStyle()
     
-    let size = WZRichTextView.calculateSize(withText: "\(indexPath.row)" + str, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: UIScreen.main.bounds.width)
+    let size = WZRichTextView.calculateSize(with: "\(indexPath.row)" + str, with: textStyle, with: interpreters, with: UIScreen.main.bounds.width)
     
     return size.height
   }

@@ -31,6 +31,7 @@ class ViewDemoViewController: UIViewController {
   
   func setupUI() {
     
+    let testStr = str1
     let clickableInterpreter = ClickableInterpreter()
     clickableInterpreter.delegate = self
 //    clickableInterpreter.keyTextNormalForegroundColor = nil
@@ -40,14 +41,16 @@ class ViewDemoViewController: UIViewController {
     let htmlInterpreter = HTMLInterpreter()
     htmlInterpreter.isParserHerf = true
     
-    let interpreters: [Interpreter] = [PictureInterpreter(), clickableInterpreter]
+    let pictureInterpreter = PictureInterpreter()
+    pictureInterpreter.delegate = self
+    let interpreters: [Interpreter] = [pictureInterpreter, clickableInterpreter]
     
     let textStyle = WZTextStyle()
     textStyle.backgroundColor = UIColor.green
     textStyle.isVerticalCenter = true
 //    textStyle.textAlignment = .center
     
-    let size = WZRichTextView.calculateSize(withText: str, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: view.frame.width)
+    let size = WZRichTextView.calculateSize(with: testStr, with: textStyle, with: interpreters, with: view.frame.width)
     
     richTextView = WZRichTextView(frame: CGRect(x: 0, y: 100, width: size.width, height: size.height))
 //    richTextView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -56,50 +59,25 @@ class ViewDemoViewController: UIViewController {
     richTextView.interpreters = interpreters
     richTextView.cachedContent = true
     view.addSubview(richTextView)
-    richTextView.text = str
-//    richTextView.text = str1
+    richTextView.text = testStr
     
- 
-    print(self)
   }
 
   @IBAction func test() {
     
     WZRichTextCache.sharedCache.removeAllCache()
-//    let clickableInterpreter = ClickableInterpreter()
-//    clickableInterpreter.delegate = self
-//    clickableInterpreter.keyTextNormalForegroundColor = nil
-//    clickableInterpreter.keyTextSelectedBackgroundColor = UIColor.orange
-//    clickableInterpreter.keyTextSelectedForegroundColor = UIColor.red
-//    
-//    let htmlInterpreter = HTMLInterpreter()
-//    htmlInterpreter.isParserHerf = true
-//    
-//    let interpreters2: [Interpreter] = [clickableInterpreter, htmlInterpreter]
-//    
-//    let textStyle = WZTextStyle()
-//    textStyle.backgroundColor = UIColor.green
-//    textStyle.isVerticalCenter = true
-//    //    textStyle.textAlignment = .center
-//    
-//    let size2 = WZRichTextView.calculateSize(withText: str2, withTextStyle: textStyle, withInterpretes: interpreters2, withMaxWidth: view.frame.width)
-//    
-//    
-//    let richTextView2 = WZRichTextView(frame: CGRect(x: 0, y: 150, width: size2.width, height: size2.height))
-//    //    richTextView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//    richTextView2.textStyle = textStyle
-//    richTextView2.backgroundColor = UIColor.green
-//    richTextView2.interpreters = interpreters2
-//    richTextView2.cachedContent = true
-//    view.addSubview(richTextView2)
-//    //    richTextView.text = str
-//    richTextView2.text = str2
-//    
   }
 }
 
 extension ViewDemoViewController: ClickableInterpreterDelegate {
   func didClick(with richText: WZRichTextView, with key: String) {
     print(key)
+  }
+}
+
+extension ViewDemoViewController: PictureInterpreterDelegate {
+  
+  func pictureInterpreter(pictureInterpreter: PictureInterpreter, pictureSizeAt index: Int) -> CGSize {
+    return CGSize(width: 12, height: 12)
   }
 }

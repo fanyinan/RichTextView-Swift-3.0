@@ -15,27 +15,46 @@ struct PictureData {
   var pictureLocation = 0
 }
 
+class PictureRunInfo {
+  
+  var ascender: CGFloat
+  var descender: CGFloat
+  var width: CGFloat
+  
+  init(ascender: CGFloat, descender: CGFloat, width: CGFloat) {
+    self.ascender = ascender
+    self.descender = descender
+    self.width = width
+  }
+}
+
+protocol PictureInterpreterDelegate: NSObjectProtocol {
+  func pictureInterpreter(pictureInterpreter: PictureInterpreter, pictureSizeAt index: Int) -> CGSize
+}
+
 class PictureInterpreter: NSObject, Interpreter {
   
+  weak var delegate: PictureInterpreterDelegate?
   var font = UIFont.systemFont(ofSize: 15)
-  var imageWidth: CGFloat = 18
   var imageHoriMargin: CGFloat = 1
+  var pictureRunInfos: [PictureRunInfo] = []
   
   var runDelegateCallbacks = CTRunDelegateCallbacks(version: kCTRunDelegateVersion1, dealloc: { pointer in
     
     }, getAscent: { pointer -> CGFloat in
       
-      let selfInstance = unsafeBitCast(pointer, to: PictureInterpreter.self)
-      return selfInstance.font.ascender
+      let pictureRunInfo = unsafeBitCast(pointer, to: PictureRunInfo.self)
+      return pictureRunInfo.ascender
       
     }, getDescent: { pointer -> CGFloat in
       
-      let selfInstance = unsafeBitCast(pointer, to: PictureInterpreter.self)
-      return -selfInstance.font.descender
+      let pictureRunInfo = unsafeBitCast(pointer, to: PictureRunInfo.self)
+      return pictureRunInfo.descender
       
     }, getWidth: { pointer -> CGFloat in
-    let selfInstance = unsafeBitCast(pointer, to: PictureInterpreter.self)
-    return selfInstance.imageWidth + selfInstance.imageHoriMargin * 2
+      
+    let pictureRunInfo = unsafeBitCast(pointer, to: PictureRunInfo.self)
+    return pictureRunInfo.width
     
   })
 
@@ -63,7 +82,11 @@ class PictureInterpreter: NSObject, Interpreter {
       insertSpace.addAttributes(picturePlaceholderAttributes, range: NSRange(location: 0, length: 1))
       insertSpace.addAttribute(kCTForegroundColorAttributeName as String, value: UIColor.clear.cgColor, range: NSRange(location: 0, length: 1))
       
-      let runDelegate = CTRunDelegateCreate(&runDelegateCallbacks, unsafeBitCast(self, to: UnsafeMutableRawPointer.self))
+      let imageSize = delegate?.pictureInterpreter(pictureInterpreter: self, pictureSizeAt: range.location) ?? CGSize(width: font.lineHeight, height: font.lineHeight)
+      let extraHeight = (imageSize.height - font.lineHeight) / 2
+      let pictureRunInfo = PictureRunInfo(ascender: font.ascender + extraHeight, descender: -font.descender + extraHeight, width: imageSize.width + imageHoriMargin * 2)
+      pictureRunInfos += [pictureRunInfo]
+      let runDelegate = CTRunDelegateCreate(&runDelegateCallbacks, unsafeBitCast(pictureRunInfo, to: UnsafeMutableRawPointer.self))
       insertSpace.addAttribute(kCTRunDelegateAttributeName as String, value: runDelegate!, range: NSRange(location: 0, length: insertSpace.length))
       
       let imageName = (text as NSString).substring(with: NSRange(location: range.location + 1, length: range.length - 2))
@@ -76,14 +99,12 @@ class PictureInterpreter: NSObject, Interpreter {
   
   func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any) {
     
-    let runCenterYInLine = (font.ascender - font.descender - imageWidth) / 2
-    
-    let imagePosition = CGPoint(x: runRect.origin.x + imageHoriMargin, y: runRect.origin.y + runCenterYInLine)
+    let imagePosition = CGPoint(x: runRect.origin.x + imageHoriMargin, y: runRect.origin.y)
     
     let pictureImageName = (keyAttributeValue as! PictureData).pictureImageName
     
     guard let cgImage = UIImage(named: "\(pictureImageName).png")?.cgImage else { return }
-    context.draw(cgImage, in: CGRect(origin: imagePosition, size: CGSize(width: imageWidth, height: imageWidth)))
+    context.draw(cgImage, in: CGRect(origin: imagePosition, size: CGSize(width: runRect.width - imageHoriMargin * 2, height: runRect.height)))
 
   }
 }

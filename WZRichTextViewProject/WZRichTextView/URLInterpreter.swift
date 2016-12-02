@@ -42,9 +42,8 @@ class URLInterpreter: NSObject, Interpreter {
     }
   }
   
-  func didClick(with richTextView: WZRichTextView, withA attributeValue: Any) {
-    
+  func didClick(with richTextView: WZRichTextView, with attributeValue: Any) {
     print(attributeValue)
-    
   }
+
 }

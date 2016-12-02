@@ -34,7 +34,7 @@ class WZRichTextView: UIView {
     drawContent()
   }
   
-  func drawContent(highlightRange: NSRange = NSRange(location: 0, length: 0)) {
+  func drawContent(with highlightRange: NSRange = NSRange(location: 0, length: 0)) {
     
     if clearContentBeforeRedraw {
       layer.contents = nil
@@ -62,7 +62,7 @@ class WZRichTextView: UIView {
       
       self.clickable = false
       
-      let (image, rectDict) = WZRichTextView.drawImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withSize: size, withKeyInfoDict: rectDict, withCurrentClickRectValue: currentClickRectValue)
+      let (image, rectDict) = WZRichTextView.drawImage(with: text, with: textStyle, with: interpreters, with: size, with: rectDict, with: currentClickRectValue)
       
       self.clickable = true
       
@@ -94,13 +94,13 @@ class WZRichTextView: UIView {
     }
   }
   
-  class func preCreateRichText(withRichText text: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withSize size: CGSize) {
+  class func preCreateRichText(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with size: CGSize) {
     
     if WZRichTextCache.sharedCache.getRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width) != nil && WZRichTextCache.sharedCache.getRichTextKeyInfo(with: text, with: textStyle, with: interpreters, with: size.width) != nil {
       return
     }
     
-    let (image, rectDict) = self.drawImage(withRichText: text, withTextStyle: textStyle, withInterpreters: interpreters, withSize: size,    withKeyInfoDict: [:], withCurrentClickRectValue: nil)
+    let (image, rectDict) = self.drawImage(with: text, with: textStyle, with: interpreters, with: size, with: [:], with: nil)
     
     guard let _image = image else { return }
     WZRichTextCache.sharedCache.cachedRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width, image: _image)
@@ -108,7 +108,7 @@ class WZRichTextView: UIView {
     
   }
   
-  private class func drawImage(withRichText text: String, withTextStyle textStyle: WZTextStyle, withInterpreters interpreters: [Interpreter], withSize size: CGSize, withKeyInfoDict keyInfoDict: [NSValue: WZRichTextRunInfo], withCurrentClickRectValue currentClickRectValue: NSValue?) -> (UIImage?, [NSValue: WZRichTextRunInfo]) {
+  private class func drawImage(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with size: CGSize, with keyInfoDict: [NSValue: WZRichTextRunInfo], with currentClickRectValue: NSValue?) -> (UIImage?, [NSValue: WZRichTextRunInfo]) {
     
     UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
     guard let context = UIGraphicsGetCurrentContext() else { return (nil, [:])}
@@ -120,7 +120,7 @@ class WZRichTextView: UIView {
     context.translateBy(x: 0, y: size.height)
     context.scaleBy(x: 1, y: -1)
     
-    let attributedString = WZRichTextView.createAttributedString(withText: text, withTextStyle: textStyle, withInterpretes: interpreters)
+    let attributedString = WZRichTextView.createAttributedString(with: text, with: textStyle, with: interpreters)
     
     if let clickRectValue = currentClickRectValue, let range = keyInfoDict[clickRectValue]?.range, let classType = keyInfoDict[clickRectValue]?.classType {
       
@@ -142,7 +142,7 @@ class WZRichTextView: UIView {
     
     var currentKeyInfoDict: [NSValue : WZRichTextRunInfo] = [:]
     
-    let yOffset = WZRichTextView.calculateOffsetForVerticalCenter(withImageSize: size, withText: text, withTextStyle: textStyle, withInterpretes: interpreters)
+    let yOffset = WZRichTextView.calculateOffsetForVerticalCenter(with: size, with: text, with: textStyle, with: interpreters)
     
     for i in 0..<linesCount {
       
@@ -171,8 +171,8 @@ class WZRichTextView: UIView {
         touchableRect.origin.y -= textStyle.lineSpace / 2
         touchableRect.size.height += textStyle.lineSpace
         
-        UIColor.random.withAlphaComponent(0.5).setFill()
-        context.fill(runRect)
+//        UIColor.random.withAlphaComponent(0.5).setFill()
+//        context.fill(runRect)
         
         for interpreter in interpreters {
           
@@ -210,7 +210,7 @@ class WZRichTextView: UIView {
       if rect.cgRectValue.contains(runPosition) {
         
         currentClickRectValue = rect
-        drawContent(highlightRange: rectDict[rect]!.range)
+        drawContent(with: rectDict[rect]!.range)
       }
     }
   }
@@ -224,7 +224,7 @@ class WZRichTextView: UIView {
     drawContent()
     
     guard let classType = rectDict[currentClickRectValue]?.classType else { return }
-    
+        
     interpreters.filter({$0.isKind(of: classType)}).first?.didClick(with: self, with: attributeValue)
     
   }
@@ -236,13 +236,13 @@ class WZRichTextView: UIView {
     
   }
   
-  class func  calculateSize(withText text: String, withTextStyle textStyle: WZTextStyle, withInterpretes interpreters: [Interpreter],  withMaxWidth maxWidth: CGFloat) -> CGSize {
+  class func calculateSize(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter],  with maxWidth: CGFloat) -> CGSize {
     
     if let size = WZRichTextCache.sharedCache.getRichTextSize(with: text, with: textStyle, with: interpreters, with: maxWidth) {
       return size
     }
     
-    let attributedString = WZRichTextView.createAttributedString(withText: text, withTextStyle: textStyle, withInterpretes: interpreters)
+    let attributedString = WZRichTextView.createAttributedString(with: text, with: textStyle, with: interpreters)
     
     let frameSetter = CTFramesetterCreateWithAttributedString(attributedString)
     
@@ -262,7 +262,12 @@ class WZRichTextView: UIView {
     return size
   }
   
-  private class func createAttributedString(withText text: String, withTextStyle textStyle: WZTextStyle, withInterpretes interpreters: [Interpreter]) -> NSMutableAttributedString {
+  class func calculateSize(with richTextView: WZRichTextView, withMaxWidth maxWidth: CGFloat) -> CGSize {
+  
+    return calculateSize(with: richTextView.text, with: richTextView.textStyle, with: richTextView.interpreters, with: maxWidth)
+  }
+  
+  private class func createAttributedString(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter]) -> NSMutableAttributedString {
     
     var attributesDic: [String: AnyObject] = [:]
     
@@ -293,17 +298,15 @@ class WZRichTextView: UIView {
     return attributedString
   }
   
-  private class func calculateOffsetForVerticalCenter(withImageSize imageSize: CGSize, withText text: String, withTextStyle textStyle: WZTextStyle, withInterpretes interpreters: [Interpreter]) -> CGFloat {
+  private class func calculateOffsetForVerticalCenter(with imageSize: CGSize, with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter]) -> CGFloat {
     
     guard textStyle.isVerticalCenter else {
       return 0
     }
     
-    var yOffset: CGFloat = 0
+    let textSize = calculateSize(with: text, with: textStyle, with: interpreters, with: imageSize.width)
     
-    let textSize = calculateSize(withText: text, withTextStyle: textStyle, withInterpretes: interpreters, withMaxWidth: imageSize.width)
-    
-    yOffset = (imageSize.height - textSize.height) / 2
+    let yOffset = (imageSize.height - textSize.height) / 2
     
     return yOffset
   }
