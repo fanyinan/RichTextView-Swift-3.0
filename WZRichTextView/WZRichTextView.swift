@@ -19,6 +19,12 @@ public class WZRichTextView: UIView {
   public var cachedContent = false
   public var clearContentBeforeRedraw = false
   
+  public var text: String = "" {
+    didSet{
+      rectDict.removeAll()
+    }
+  }
+  
   static let keyAttributeName = "keyAttributeName"
   
   public init() {
@@ -31,15 +37,6 @@ public class WZRichTextView: UIView {
   
   required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
-  }
-
-  var text: String = "" {
-    didSet{
-      
-      rectDict.removeAll()
-      setNeedsLayout()
-      
-    }
   }
   
   override public func layoutSubviews() {
@@ -106,7 +103,7 @@ public class WZRichTextView: UIView {
     }
   }
   
-  class func preCreateRichText(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with size: CGSize) {
+  public class func preCreateRichText(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with size: CGSize) {
     
     if WZRichTextCache.sharedCache.getRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width) != nil && WZRichTextCache.sharedCache.getRichTextKeyInfo(with: text, with: textStyle, with: interpreters, with: size.width) != nil {
       return
