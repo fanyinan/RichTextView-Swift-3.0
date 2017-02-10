@@ -22,6 +22,7 @@ public class WZRichTextView: UIView {
   public var text: String = "" {
     didSet{
       rectDict.removeAll()
+      setNeedsLayout()
     }
   }
   
