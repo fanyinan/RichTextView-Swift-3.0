@@ -21,6 +21,18 @@ public class WZRichTextView: UIView {
   
   static let keyAttributeName = "keyAttributeName"
   
+  public init() {
+    super.init(frame: CGRect.zero)
+  }
+  
+  public override init(frame: CGRect) {
+    super.init(frame: frame)
+  }
+  
+  required public init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   var text: String = "" {
     didSet{
       
@@ -236,7 +248,7 @@ public class WZRichTextView: UIView {
     
   }
   
-  class func calculateSize(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter],  with maxWidth: CGFloat) -> CGSize {
+  public class func calculateSize(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter],  with maxWidth: CGFloat) -> CGSize {
     
     if let size = WZRichTextCache.sharedCache.getRichTextSize(with: text, with: textStyle, with: interpreters, with: maxWidth) {
       return size
@@ -262,7 +274,7 @@ public class WZRichTextView: UIView {
     return size
   }
   
-  class func calculateSize(with richTextView: WZRichTextView, withMaxWidth maxWidth: CGFloat) -> CGSize {
+  public class func calculateSize(with richTextView: WZRichTextView, withMaxWidth maxWidth: CGFloat) -> CGSize {
   
     return calculateSize(with: richTextView.text, with: richTextView.textStyle, with: richTextView.interpreters, with: maxWidth)
   }

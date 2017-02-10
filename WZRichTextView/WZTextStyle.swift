@@ -17,6 +17,8 @@ public class WZTextStyle: Hashable {
   public var textAlignment: CTTextAlignment = .left
   public var isVerticalCenter = false
   
+  public init() { }
+  
   public var hashValue: Int {
     
     let hashComponents = [Int(lineSpace), Int(font.pointSize), textColor.hashValue, backgroundColor.hashValue, Int(textAlignment.rawValue), isVerticalCenter.hashValue]
