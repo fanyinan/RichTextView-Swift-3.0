@@ -8,16 +8,16 @@
 
 import UIKit
 
-class WZTextStyle: Hashable {
+public class WZTextStyle: Hashable {
   
-  var font: UIFont = UIFont.systemFont(ofSize: 16)
-  var lineSpace: CGFloat = 0
-  var backgroundColor: UIColor = UIColor.white
-  var textColor: UIColor = UIColor.black
-  var textAlignment: CTTextAlignment = .left
-  var isVerticalCenter = false
+  public var font: UIFont = UIFont.systemFont(ofSize: 16)
+  public var lineSpace: CGFloat = 0
+  public var backgroundColor: UIColor = UIColor.white
+  public var textColor: UIColor = UIColor.black
+  public var textAlignment: CTTextAlignment = .left
+  public var isVerticalCenter = false
   
-  var hashValue: Int {
+  public var hashValue: Int {
     
     let hashComponents = [Int(lineSpace), Int(font.pointSize), textColor.hashValue, backgroundColor.hashValue, Int(textAlignment.rawValue), isVerticalCenter.hashValue]
     
@@ -31,7 +31,7 @@ class WZTextStyle: Hashable {
     return hash
   }
   
-  static func ==(lhs: WZTextStyle, rhs: WZTextStyle) -> Bool {
+  public static func ==(lhs: WZTextStyle, rhs: WZTextStyle) -> Bool {
     return lhs.hashValue == rhs.hashValue
   }
   

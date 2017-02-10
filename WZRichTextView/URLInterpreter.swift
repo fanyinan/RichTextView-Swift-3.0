@@ -8,12 +8,12 @@
 
 import UIKit
 
-class URLInterpreter: NSObject, Interpreter {
+public class URLInterpreter: NSObject, Interpreter {
   
-  var keyTextNormalBackgroundColor: UIColor = UIColor.blue
-  var keyTextSelectedBackgroundColor: UIColor = UIColor.green
+  public var keyTextNormalBackgroundColor: UIColor = UIColor.blue
+  public var keyTextSelectedBackgroundColor: UIColor = UIColor.green
 
-  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
+  public func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
     let pattern = "(ht|f)tp(s?)://[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-.?,'/\\+&amp;%$#_]*)?"
@@ -42,7 +42,7 @@ class URLInterpreter: NSObject, Interpreter {
     }
   }
   
-  func didClick(with richTextView: WZRichTextView, with attributeValue: Any) {
+  public func didClick(with richTextView: WZRichTextView, with attributeValue: Any) {
     print(attributeValue)
   }
 

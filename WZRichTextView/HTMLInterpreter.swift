@@ -8,11 +8,11 @@
 
 import UIKit
 
-class HTMLInterpreter: NSObject, Interpreter {
+public class HTMLInterpreter: NSObject, Interpreter {
   
-  var isParserHerf = false
+  public var isParserHerf = false
 
-  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
+  public func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
     

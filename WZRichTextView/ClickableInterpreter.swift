@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol ClickableInterpreterDelegate: NSObjectProtocol {
+public protocol ClickableInterpreterDelegate: NSObjectProtocol {
   func didClick(with richTextView: WZRichTextView, with key: String)
 }
 
-class ClickableInterpreter: NSObject, Interpreter {
+public class ClickableInterpreter: NSObject, Interpreter {
   
-  var keyTextNormalForegroundColor: UIColor?
-  var keyTextSelectedForegroundColor: UIColor = UIColor.blue
-  var keyTextSelectedBackgroundColor: UIColor = UIColor.clear
+  public var keyTextNormalForegroundColor: UIColor?
+  public var keyTextSelectedForegroundColor: UIColor = UIColor.blue
+  public var keyTextSelectedBackgroundColor: UIColor = UIColor.clear
   
-  weak var delegate: ClickableInterpreterDelegate?
+  public weak var delegate: ClickableInterpreterDelegate?
   
-  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
+  public func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
     let keyTextPattern = "(<(.+?)>)(.+?)(<(/.*?)>)"
@@ -55,7 +55,7 @@ class ClickableInterpreter: NSObject, Interpreter {
     }
   }
   
-  func didClick(with richTextView: WZRichTextView, with attributeValue: Any) {
+  public func didClick(with richTextView: WZRichTextView, with attributeValue: Any) {
     delegate?.didClick(with: richTextView, with: attributeValue as! String)
   }
   

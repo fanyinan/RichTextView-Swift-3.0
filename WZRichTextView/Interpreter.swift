@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol Interpreter: NSObjectProtocol {
+public protocol Interpreter: NSObjectProtocol {
   
   func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String)
   
@@ -21,10 +21,10 @@ protocol Interpreter: NSObjectProtocol {
 
 extension Interpreter {
   
-  func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any){}
+  public func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any){}
 
-  func didClick(with richTextView: WZRichTextView, with attributeValue: Any){}
+  public func didClick(with richTextView: WZRichTextView, with attributeValue: Any){}
 
-  func editAttributedStringOnTouchDown(with richText: NSMutableAttributedString, in ranges: [NSRange]){}
+  public func editAttributedStringOnTouchDown(with richText: NSMutableAttributedString, in ranges: [NSRange]){}
   
 }

@@ -8,16 +8,16 @@
 
 import UIKit
 
-class WZRichTextView: UIView {
+public class WZRichTextView: UIView {
   
   private var rectDict: [NSValue: WZRichTextRunInfo] = [:]
   private var currentClickRectValue: NSValue?
   private var clickable = true
   
-  var interpreters: [Interpreter] = []
-  var textStyle = WZTextStyle()
-  var cachedContent = false
-  var clearContentBeforeRedraw = false
+  public var interpreters: [Interpreter] = []
+  public var textStyle = WZTextStyle()
+  public var cachedContent = false
+  public var clearContentBeforeRedraw = false
   
   static let keyAttributeName = "keyAttributeName"
   
@@ -30,7 +30,7 @@ class WZRichTextView: UIView {
     }
   }
   
-  override func layoutSubviews() {
+  override public func layoutSubviews() {
     drawContent()
   }
   
@@ -198,7 +198,7 @@ class WZRichTextView: UIView {
     return (image, keyInfoDict.isEmpty ? currentKeyInfoDict : keyInfoDict)
   }
   
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     guard clickable else { return }
     
@@ -215,7 +215,7 @@ class WZRichTextView: UIView {
     }
   }
   
-  override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     guard let currentClickRectValue = currentClickRectValue else { return}
     guard let attributeValue = rectDict[currentClickRectValue]?.attributeValue else { return }
@@ -229,7 +229,7 @@ class WZRichTextView: UIView {
     
   }
   
-  override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     currentClickRectValue = nil
     drawContent()

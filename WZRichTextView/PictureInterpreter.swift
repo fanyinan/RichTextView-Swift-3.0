@@ -28,13 +28,13 @@ class PictureRunInfo {
   }
 }
 
-protocol PictureInterpreterDelegate: NSObjectProtocol {
+public protocol PictureInterpreterDelegate: NSObjectProtocol {
   func pictureInterpreter(pictureInterpreter: PictureInterpreter, pictureSizeAt index: Int) -> CGSize
 }
 
-class PictureInterpreter: NSObject, Interpreter {
+public class PictureInterpreter: NSObject, Interpreter {
   
-  weak var delegate: PictureInterpreterDelegate?
+  public weak var delegate: PictureInterpreterDelegate?
   var font = UIFont.systemFont(ofSize: 15)
   var imageHoriMargin: CGFloat = 1
   var pictureRunInfos: [PictureRunInfo] = []
@@ -58,7 +58,7 @@ class PictureInterpreter: NSObject, Interpreter {
     
   })
 
-  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
+  public func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
     
@@ -97,7 +97,7 @@ class PictureInterpreter: NSObject, Interpreter {
     }
   }
   
-  func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any) {
+  public func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any) {
     
     let imagePosition = CGPoint(x: runRect.origin.x + imageHoriMargin, y: runRect.origin.y)
     
