@@ -14,7 +14,7 @@ protocol ClickableInterpreterDelegate: NSObjectProtocol {
 
 class ClickableInterpreter: NSObject, Interpreter {
   
-  var keyTextNormalForegroundColor: UIColor? = UIColor.blue
+  var keyTextNormalForegroundColor: UIColor?
   var keyTextSelectedForegroundColor: UIColor = UIColor.blue
   var keyTextSelectedBackgroundColor: UIColor = UIColor.clear
   
@@ -23,55 +23,33 @@ class ClickableInterpreter: NSObject, Interpreter {
   func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
     
     let text = richText.string
-    let keyTextPattern = "<.+?>.+?</.*?>"
+    let keyTextPattern = "(<(.+?)>)(.+?)(<(/.*?)>)"
     let keyTextRegular = try! NSRegularExpression(pattern: keyTextPattern)
-    
-    let keyWordPattern = "[^<>]+"
-    let keyWordRegular = try! NSRegularExpression(pattern: keyWordPattern)
     
     let results = keyTextRegular.matches(in: text, range: NSRange(location: 0, length: (text as NSString).length))
     
     for result in results.reversed() {
       
-      let range = result.range
-      
-      let keyString = (text as NSString).substring(with: range)
-      
-      let keyWordResults = keyWordRegular.matches(in: keyString, range: NSRange(location: 0, length: (keyString as NSString).length))
-      
-      guard keyWordResults.count == 3 else { continue }
-      
-      var keyWords: [String] = []
-      
-      for keyWordResult in keyWordResults {
-      
-        let range = keyWordResult.range
-        
-        let keyString = (keyString as NSString).substring(with: range)
-        
-        keyWords += [keyString]
-        
-      }
-      
-      guard "/\(keyWords[0])" == keyWords[2] || keyWords[2] == "/" else { continue }
-      
-      let startTag = keyWords[0]
-      let content = keyWords[1]
-      let endTag = keyWords[2]
+      let startTagRange = result.rangeAt(1)
+      let startTagTextRange = result.rangeAt(2)
+      let keyWordRange = result.rangeAt(3)
+      let endTagRange = result.rangeAt(4)
+      let endTagTextRange = result.rangeAt(5)
 
-      let markLength = NSString(string: "<>").length
-      let endTagLocation = range.location + startTag.characters.count + content.characters.count + markLength
-      let endTagLength = endTag.characters.count + markLength
-      richText.deleteCharacters(in: NSRange(location: endTagLocation, length: endTagLength))
+      let keyWord = (text as NSString).substring(with: keyWordRange)
+      let startTag = (text as NSString).substring(with: startTagTextRange)
+      let endTag = (text as NSString).substring(with: endTagTextRange)
+      
+      guard "/\(startTag)" == endTag || endTag == "/" else { continue }
+      
+      richText.deleteCharacters(in: endTagRange)
+      richText.deleteCharacters(in: startTagRange)
 
-      let startTagLocation = range.location
-      let startTagLength = startTag.characters.count + markLength
-      richText.deleteCharacters(in: NSRange(location: startTagLocation, length: startTagLength))
-
-      richText.addAttribute(keyAttributeName, value: startTag, range: NSRange(location: range.location, length: content.characters.count))
+      richText.addAttribute(keyAttributeName, value: startTag, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
       
       if let keyTextNormalForegroundColor = keyTextNormalForegroundColor {
-        richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: range.location, length: content.characters.count))
+        
+        richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
 
       }
     }
@@ -90,5 +68,4 @@ class ClickableInterpreter: NSObject, Interpreter {
 
     }
   }
-
 }
