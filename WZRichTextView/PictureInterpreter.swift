@@ -35,10 +35,11 @@ public protocol PictureInterpreterDelegate: NSObjectProtocol {
 public class PictureInterpreter: NSObject, Interpreter {
   
   public weak var delegate: PictureInterpreterDelegate?
-  var font = UIFont.systemFont(ofSize: 15)
-  var imageHoriMargin: CGFloat = 1
-  var pictureRunInfos: [PictureRunInfo] = []
+  public var imageHoriMargin: CGFloat = 1
   
+  var pictureRunInfos: [PictureRunInfo] = []
+  var font = UIFont.systemFont(ofSize: 15)
+
   var runDelegateCallbacks = CTRunDelegateCallbacks(version: kCTRunDelegateVersion1, dealloc: { pointer in
     
     }, getAscent: { pointer -> CGFloat in
