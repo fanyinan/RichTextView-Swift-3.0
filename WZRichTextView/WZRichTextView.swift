@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class WZRichTextView: UIView {
+open class WZRichTextView: UIView {
   
   private var rectDict: [NSValue: WZRichTextRunInfo] = [:]
   private var currentClickRectValue: NSValue?
@@ -40,7 +40,7 @@ public class WZRichTextView: UIView {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override public func layoutSubviews() {
+  override open func layoutSubviews() {
     drawContent()
   }
   
@@ -208,7 +208,7 @@ public class WZRichTextView: UIView {
     return (image, keyInfoDict.isEmpty ? currentKeyInfoDict : keyInfoDict)
   }
   
-  override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override open func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     guard clickable else { return }
     
@@ -225,7 +225,7 @@ public class WZRichTextView: UIView {
     }
   }
   
-  override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override open func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     guard let currentClickRectValue = currentClickRectValue else { return}
     guard let attributeValue = rectDict[currentClickRectValue]?.attributeValue else { return }
@@ -239,7 +239,7 @@ public class WZRichTextView: UIView {
     
   }
   
-  override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override open func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     currentClickRectValue = nil
     drawContent()
