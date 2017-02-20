@@ -10,7 +10,7 @@ import UIKit
 
 public protocol Interpreter: NSObjectProtocol {
   
-  func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String)
+  func interpret(with richText: NSMutableAttributedString, with textStyle: WZTextStyle, with keyAttributeName: String)
   
   func draw(in context: CGContext, with runRect: CGRect, with keyAttributeValue: Any)
   

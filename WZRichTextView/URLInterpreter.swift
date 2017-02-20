@@ -13,7 +13,7 @@ public class URLInterpreter: NSObject, Interpreter {
   public var keyTextNormalBackgroundColor: UIColor = UIColor.blue
   public var keyTextSelectedBackgroundColor: UIColor = UIColor.green
 
-  public func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
+  public func interpret(with richText: NSMutableAttributedString, with textStyle: WZTextStyle, with keyAttributeName: String) {
     
     let text = richText.string
     let pattern = "(ht|f)tp(s?)://[0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*(:(0-9)*)*(/?)([a-zA-Z0-9-.?,'/\\+&amp;%$#_]*)?"

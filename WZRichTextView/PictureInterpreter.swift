@@ -29,7 +29,7 @@ class PictureRunInfo {
 }
 
 public protocol PictureInterpreterDelegate: NSObjectProtocol {
-  func pictureInterpreter(pictureInterpreter: PictureInterpreter, pictureSizeAt index: Int) -> CGSize
+  func pictureInterpreter(pictureInterpreter: PictureInterpreter, pictureSizeAt index: Int, with pictureMaxSize: CGSize) -> CGSize
 }
 
 public class PictureInterpreter: NSObject, Interpreter {
@@ -38,7 +38,6 @@ public class PictureInterpreter: NSObject, Interpreter {
   public var imageHoriMargin: CGFloat = 1
   
   var pictureRunInfos: [PictureRunInfo] = []
-  var font = UIFont.systemFont(ofSize: 15)
 
   var runDelegateCallbacks = CTRunDelegateCallbacks(version: kCTRunDelegateVersion1, dealloc: { pointer in
     
@@ -59,7 +58,7 @@ public class PictureInterpreter: NSObject, Interpreter {
     
   })
 
-  public func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
+  public func interpret(with richText: NSMutableAttributedString, with textStyle: WZTextStyle, with keyAttributeName: String) {
     
     let text = richText.string
     
@@ -83,9 +82,11 @@ public class PictureInterpreter: NSObject, Interpreter {
       insertSpace.addAttributes(picturePlaceholderAttributes, range: NSRange(location: 0, length: 1))
       insertSpace.addAttribute(kCTForegroundColorAttributeName as String, value: UIColor.clear.cgColor, range: NSRange(location: 0, length: 1))
       
-      let imageSize = delegate?.pictureInterpreter(pictureInterpreter: self, pictureSizeAt: range.location) ?? CGSize(width: font.lineHeight, height: font.lineHeight)
-      let extraHeight = (imageSize.height - font.lineHeight) / 2
-      let pictureRunInfo = PictureRunInfo(ascender: font.ascender + extraHeight, descender: -font.descender + extraHeight, width: imageSize.width + imageHoriMargin * 2)
+      let imageMaxSize = CGSize(width: textStyle.font.lineHeight, height: textStyle.font.lineHeight)
+      var imageSize = delegate?.pictureInterpreter(pictureInterpreter: self, pictureSizeAt: range.location, with: imageMaxSize) ?? imageMaxSize
+      imageSize = CGSize(width: min(imageSize.width, imageMaxSize.width), height: min(imageSize.height, imageMaxSize.height))
+      let extraHeight = (imageSize.height - textStyle.font.lineHeight) / 2
+      let pictureRunInfo = PictureRunInfo(ascender: textStyle.font.ascender + extraHeight, descender: -textStyle.font.descender + extraHeight, width: imageSize.width + imageHoriMargin * 2)
       pictureRunInfos += [pictureRunInfo]
       let runDelegate = CTRunDelegateCreate(&runDelegateCallbacks, unsafeBitCast(pictureRunInfo, to: UnsafeMutableRawPointer.self))
       insertSpace.addAttribute(kCTRunDelegateAttributeName as String, value: runDelegate!, range: NSRange(location: 0, length: insertSpace.length))

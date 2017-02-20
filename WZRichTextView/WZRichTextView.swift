@@ -181,8 +181,8 @@ open class WZRichTextView: UIView {
         touchableRect.origin.y -= textStyle.lineSpace / 2
         touchableRect.size.height += textStyle.lineSpace
         
-//        UIColor.random.withAlphaComponent(0.5).setFill()
-//        context.fill(runRect)
+        UIColor.random.withAlphaComponent(0.5).setFill()
+        context.fill(runRect)
         
         for interpreter in interpreters {
           
@@ -302,7 +302,7 @@ open class WZRichTextView: UIView {
     
     for interpreter in interpreters {
       let type = type(of: interpreter)
-      interpreter.interpret(with: attributedString, with: "\(WZRichTextView.keyAttributeName)-\(type)")
+      interpreter.interpret(with: attributedString, with: textStyle, with: "\(WZRichTextView.keyAttributeName)-\(type)")
     }
     
     return attributedString

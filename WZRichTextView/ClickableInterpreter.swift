@@ -20,7 +20,7 @@ public class ClickableInterpreter: NSObject, Interpreter {
   
   public weak var delegate: ClickableInterpreterDelegate?
   
-  public func interpret(with richText: NSMutableAttributedString, with keyAttributeName: String) {
+  public func interpret(with richText: NSMutableAttributedString, with textStyle: WZTextStyle, with keyAttributeName: String) {
     
     let text = richText.string
     let keyTextPattern = "(<(.+?)>)(.+?)(<(/.*?)>)"

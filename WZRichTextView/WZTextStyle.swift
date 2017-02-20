@@ -10,7 +10,7 @@ import UIKit
 
 public class WZTextStyle: Hashable {
   
-  public var font: UIFont = UIFont.systemFont(ofSize: 16)
+  public var font: UIFont = UIFont.systemFont(ofSize: 20)
   public var lineSpace: CGFloat = 0
   public var backgroundColor: UIColor = UIColor.white
   public var textColor: UIColor = UIColor.black

@@ -80,7 +80,9 @@ extension ViewDemoViewController: ClickableInterpreterDelegate {
 
 extension ViewDemoViewController: PictureInterpreterDelegate {
   
-  func pictureInterpreter(pictureInterpreter: PictureInterpreter, pictureSizeAt index: Int) -> CGSize {
-    return CGSize(width: 12, height: 12)
+  func pictureInterpreter(pictureInterpreter: PictureInterpreter, pictureSizeAt index: Int, with pictureMaxSize: CGSize) -> CGSize {
+    
+    return CGSize(width: pictureMaxSize.width - 6, height: pictureMaxSize.height - 6)
+
   }
 }
