@@ -181,8 +181,8 @@ open class WZRichTextView: UIView {
         touchableRect.origin.y -= textStyle.lineSpace / 2
         touchableRect.size.height += textStyle.lineSpace
         
-        UIColor.random.withAlphaComponent(0.5).setFill()
-        context.fill(runRect)
+//        UIColor.random.withAlphaComponent(0.5).setFill()
+//        context.fill(runRect)
         
         for interpreter in interpreters {
           
