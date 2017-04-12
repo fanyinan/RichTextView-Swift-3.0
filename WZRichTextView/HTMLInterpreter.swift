@@ -22,10 +22,8 @@ public class HTMLInterpreter: NSObject, Interpreter {
       
       guard range.length == richText.length else { return }
       
-      var attributes = attributes
-      attributes[kCTForegroundColorAttributeName as String] = nil
       htmlText.addAttributes(attributes, range: NSRange(location: 0, length: htmlText.length))
-        
+      
     }
     
     richText.setAttributedString(htmlText)
@@ -75,6 +73,8 @@ public class HTMLInterpreter: NSObject, Interpreter {
       
       //找到此序号的文本
       let range = (richText.string as NSString).ranges(of: content)[index]
+      
+      richText.removeAttribute(kCTUnderlineStyleAttributeName as String, range: range)
       richText.insert(NSAttributedString(string: "</>"), at: range.location + range.length)
       richText.insert(NSAttributedString(string: "<\(href)>"), at: range.location)
 

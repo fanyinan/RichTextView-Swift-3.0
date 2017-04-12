@@ -59,13 +59,12 @@ public class ClickableInterpreter: NSObject, Interpreter {
     delegate?.didClick(with: richTextView, with: attributeValue as! String)
   }
   
-  func editAttributedStringOnTouchDown(richText: NSMutableAttributedString, in ranges: [NSRange]) {
-    
+  public func editAttributedStringOnTouchDown(with richText: NSMutableAttributedString, in ranges: [NSRange]) {
     for range in ranges {
       
       richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextSelectedForegroundColor.cgColor, range: range)
       richText.addAttribute(NSBackgroundColorAttributeName as String, value: keyTextSelectedBackgroundColor.cgColor, range: range)
-
+      
     }
   }
 }
