@@ -11,19 +11,23 @@ import UIKit
 public class HTMLInterpreter: NSObject, Interpreter {
   
   public var isParserHerf = false
-
+  public var isUseHtmlStyle = false
+  
   public func interpret(with richText: NSMutableAttributedString, with textStyle: WZTextStyle, with keyAttributeName: String) {
     
     let text = richText.string
     
     let htmlText = try! NSMutableAttributedString(data: text.data(using: String.Encoding.unicode)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
     
-    richText.enumerateAttributes(in: NSRange(location: 0, length: richText.length), options: NSAttributedString.EnumerationOptions.longestEffectiveRangeNotRequired) { (attributes, range, bool) in
-      
-      guard range.length == richText.length else { return }
-      
-      htmlText.addAttributes(attributes, range: NSRange(location: 0, length: htmlText.length))
-      
+    if !isUseHtmlStyle {
+     
+      richText.enumerateAttributes(in: NSRange(location: 0, length: richText.length), options: NSAttributedString.EnumerationOptions.longestEffectiveRangeNotRequired) { (attributes, range, bool) in
+        
+        guard range.length == richText.length else { return }
+        
+        htmlText.addAttributes(attributes, range: NSRange(location: 0, length: htmlText.length))
+        
+      }
     }
     
     richText.setAttributedString(htmlText)
