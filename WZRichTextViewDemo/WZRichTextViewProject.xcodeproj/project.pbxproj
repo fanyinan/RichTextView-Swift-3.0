@@ -21,6 +21,7 @@
 		CF23181D1EAEF1DC003AFFCF /* PictureInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF2318191EAEF1DC003AFFCF /* PictureInterpreter.swift */; };
 		CF23181E1EAEF1DC003AFFCF /* URLInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF23181A1EAEF1DC003AFFCF /* URLInterpreter.swift */; };
 		CF23182D1EAEF589003AFFCF /* NSRange+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF23182C1EAEF589003AFFCF /* NSRange+extension.swift */; };
+		CF3976B41EB7321B00AA467A /* pic.png in Resources */ = {isa = PBXBuildFile; fileRef = CF3976B31EB7321B00AA467A /* pic.png */; };
 		CF55E1071DB0A96300AD53DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF55E1061DB0A96300AD53DA /* ViewController.swift */; };
 		CF7A35241E4D5F2000D8F59C /* timg-4.png in Resources */ = {isa = PBXBuildFile; fileRef = CF7A35231E4D5F2000D8F59C /* timg-4.png */; };
 		CF7A35321E4D636700D8F59C /* Interpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A35281E4D636700D8F59C /* Interpreter.swift */; };
@@ -47,6 +48,7 @@
 		CF2318191EAEF1DC003AFFCF /* PictureInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PictureInterpreter.swift; sourceTree = "<group>"; };
 		CF23181A1EAEF1DC003AFFCF /* URLInterpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLInterpreter.swift; sourceTree = "<group>"; };
 		CF23182C1EAEF589003AFFCF /* NSRange+extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSRange+extension.swift"; sourceTree = "<group>"; };
+		CF3976B31EB7321B00AA467A /* pic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pic.png; sourceTree = "<group>"; };
 		CF55E1061DB0A96300AD53DA /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CF7A35231E4D5F2000D8F59C /* timg-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "timg-4.png"; sourceTree = "<group>"; };
 		CF7A35281E4D636700D8F59C /* Interpreter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpreter.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				CF1DBA2B1D94C9CF00B235B5 /* Assets.xcassets */,
 				CF1DBA2D1D94C9CF00B235B5 /* LaunchScreen.storyboard */,
 				CF1DBA301D94C9CF00B235B5 /* Info.plist */,
+				CF3976B31EB7321B00AA467A /* pic.png */,
 			);
 			path = WZRichTextViewProject;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF3976B41EB7321B00AA467A /* pic.png in Resources */,
 				CF1DBA2F1D94C9CF00B235B5 /* LaunchScreen.storyboard in Resources */,
 				CF1DBA2C1D94C9CF00B235B5 /* Assets.xcassets in Resources */,
 				CF1DBA3C1D98FE3300B235B5 /* TextCell.xib in Resources */,

@@ -9,12 +9,6 @@
 import UIKit
 import CoreText
 
-//当连续两个表情相同时无法区分，会被视为一个run，用location来区分一下
-struct PictureData {
-  var pictureImageName = ""
-  var pictureLocation = 0
-}
-
 class PictureRunInfo {
   
   var ascender: CGFloat
@@ -79,7 +73,7 @@ public class PictureInterpreter: NSObject, Interpreter {
       //CTFramesetterSuggestFrameSizeWithConstraints会莫名其妙的忽略最后一个空格，所以这里用一个透明的字符代替
       let insertSpace = NSMutableAttributedString(string: "*")
       //将空白格的attributes设置为之前字符串的attributes
-      insertSpace.addAttributes(picturePlaceholderAttributes, range: NSRange(location: 0, length: 1))
+      insertSpace.addAttributes(picturePlaceholderAttributes, range: NSRange(location: 0, length: insertSpace.length))
       insertSpace.addAttribute(kCTForegroundColorAttributeName as String, value: UIColor.clear.cgColor, range: NSRange(location: 0, length: 1))
       
       let imageMaxSize = CGSize(width: textStyle.font.lineHeight, height: textStyle.font.lineHeight)
@@ -93,7 +87,7 @@ public class PictureInterpreter: NSObject, Interpreter {
       
       let imageName = (text as NSString).substring(with: NSRange(location: range.location + 1, length: range.length - 2))
       
-      insertSpace.addAttribute(keyAttributeName, value: PictureData(pictureImageName: imageName, pictureLocation: range.location), range: NSRange(location: 0, length: insertSpace.length))
+      insertSpace.addAttribute(keyAttributeName, value: imageName, range: NSRange(location: 0, length: insertSpace.length))
       richText.insert(insertSpace, at: range.location)
       
     }
@@ -103,10 +97,14 @@ public class PictureInterpreter: NSObject, Interpreter {
     
     let imagePosition = CGPoint(x: runRect.origin.x + imageHoriMargin, y: runRect.origin.y)
     
-    let pictureImageName = (keyAttributeValue as! PictureData).pictureImageName
+    let pictureImageName = keyAttributeValue as! String
     
     guard let cgImage = UIImage(named: "\(pictureImageName).png")?.cgImage else { return }
     context.draw(cgImage, in: CGRect(origin: imagePosition, size: CGSize(width: runRect.width - imageHoriMargin * 2, height: runRect.height)))
 
+  }
+  
+  public func didClick(with richTextView: WZRichTextView, with attributeValue: Any) {
+    print(attributeValue)
   }
 }
