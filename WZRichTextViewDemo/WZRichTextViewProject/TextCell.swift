@@ -41,7 +41,7 @@ class TextCell: UITableViewCell {
     
     let textStyle = WZTextStyle()
     
-    let size = WZRichTextView.calculateSize(with: "\(tag)" + text, with: textStyle, with: interpreters, with: contentView.frame.width)
+    let size = WZRichTextView.calculateSize(text: "\(tag)" + text, textStyle: textStyle, interpreters: interpreters, maxWidth: contentView.frame.width)
 
     textView.frame.size = size
     textView.text = "\(tag)" + text

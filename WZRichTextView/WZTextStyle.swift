@@ -15,8 +15,10 @@ public class WZTextStyle: Hashable {
   public var backgroundColor: UIColor = UIColor.white
   public var textColor: UIColor = UIColor.black
   public var textAlignment: CTTextAlignment = .left
+  public var lineBreakMode: CTLineBreakMode = .byCharWrapping
   public var isVerticalCenter = false
-  
+  public var isShowRunRect = false
+
   public init() { }
   
   public var hashValue: Int {

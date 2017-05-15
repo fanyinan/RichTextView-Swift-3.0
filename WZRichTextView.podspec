@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 
   s.name         = "WZRichTextView"
   s.version      = "0.0.2"
-  s.summary      = "A ichTextView that is easy to expand."
+  s.summary      = "A richTextView that is easy to expand."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
 
-  A ichTextView that is easy to expand
+  A richTextView that is easy to expand
 
                    DESC
 
@@ -41,19 +41,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
-
-
-  # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  #
-  #  Specify the authors of the library, with email addresses. Email addresses
-  #  of the authors are extracted from the SCM log. E.g. $ git log. CocoaPods also
-  #  accepts just a name if you'd rather not provide an email address.
-  #
-  #  Specify a social_media_url where others can refer to, for example a twitter
-  #  profile URL.
-  #
+  s.license      = "BSD"
 
   s.author             = "范祎楠"
   # Or just: s.author    = "范祎楠"

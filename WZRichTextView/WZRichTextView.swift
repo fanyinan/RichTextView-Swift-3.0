@@ -72,7 +72,7 @@ open class WZRichTextView: UIView {
       
       self.clickable = false
       
-      let (image, rectDict) = WZRichTextView.drawImage(with: text, with: textStyle, with: interpreters, with: size, with: rectDict, with: currentClickRectValue)
+      let (image, rectDict) = WZRichTextView.drawImage(text: text, textStyle: textStyle, interpreters: interpreters, size: size, keyInfoDict: rectDict, currentClickRectValue: currentClickRectValue)
       
       self.clickable = true
       
@@ -110,7 +110,7 @@ open class WZRichTextView: UIView {
       return
     }
     
-    let (image, rectDict) = self.drawImage(with: text, with: textStyle, with: interpreters, with: size, with: [:], with: nil)
+    let (image, rectDict) = self.drawImage(text: text, textStyle: textStyle, interpreters: interpreters, size: size, keyInfoDict: [:], currentClickRectValue: nil)
     
     guard let _image = image else { return }
     WZRichTextCache.sharedCache.cachedRichTextImage(with: text, with: textStyle, with: interpreters, with: size.width, image: _image)
@@ -118,7 +118,7 @@ open class WZRichTextView: UIView {
     
   }
   
-  private class func drawImage(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter], with size: CGSize, with keyInfoDict: [NSValue: WZRichTextRunInfo], with currentClickRectValue: NSValue?) -> (UIImage?, [NSValue: WZRichTextRunInfo]) {
+  private class func drawImage(text: String, textStyle: WZTextStyle, interpreters: [Interpreter], size: CGSize, keyInfoDict: [NSValue: WZRichTextRunInfo], currentClickRectValue: NSValue?) -> (UIImage?, [NSValue: WZRichTextRunInfo]) {
     
     UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
     guard let context = UIGraphicsGetCurrentContext() else { return (nil, [:])}
@@ -130,7 +130,7 @@ open class WZRichTextView: UIView {
     context.translateBy(x: 0, y: size.height)
     context.scaleBy(x: 1, y: -1)
     
-    let attributedString = WZRichTextView.createAttributedString(with: text, with: textStyle, with: interpreters)
+    let attributedString = WZRichTextView.createAttributedString(text: text, textStyle: textStyle, interpreters: interpreters)
     
     if let clickRectValue = currentClickRectValue, let range = keyInfoDict[clickRectValue]?.range, let classType = keyInfoDict[clickRectValue]?.classType {
       
@@ -152,7 +152,7 @@ open class WZRichTextView: UIView {
     
     var currentKeyInfoDict: [NSValue : WZRichTextRunInfo] = [:]
     
-    let yOffset = WZRichTextView.calculateOffsetForVerticalCenter(with: size, with: text, with: textStyle, with: interpreters)
+    let yOffset = WZRichTextView.calculateOffsetForVerticalCenter(imageSize: size, text: text, textStyle: textStyle, interpreters: interpreters)
     
     for i in 0..<linesCount {
       
@@ -181,8 +181,10 @@ open class WZRichTextView: UIView {
         touchableRect.origin.y -= textStyle.lineSpace / 2
         touchableRect.size.height += textStyle.lineSpace
         
-//        UIColor.random.withAlphaComponent(0.5).setFill()
-//        context.fill(runRect)
+        if textStyle.isShowRunRect {
+          UIColor.random.withAlphaComponent(0.5).setFill()
+          context.fill(runRect)
+        }
         
         for interpreter in interpreters {
           
@@ -246,13 +248,13 @@ open class WZRichTextView: UIView {
     
   }
   
-  public class func calculateSize(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter],  with maxWidth: CGFloat) -> CGSize {
+  public class func calculateSize(text: String, textStyle: WZTextStyle, interpreters: [Interpreter],  maxWidth: CGFloat) -> CGSize {
     
     if let size = WZRichTextCache.sharedCache.getRichTextSize(with: text, with: textStyle, with: interpreters, with: maxWidth) {
       return size
     }
     
-    let attributedString = WZRichTextView.createAttributedString(with: text, with: textStyle, with: interpreters)
+    let attributedString = WZRichTextView.createAttributedString(text: text, textStyle: textStyle, interpreters: interpreters)
     
     let frameSetter = CTFramesetterCreateWithAttributedString(attributedString)
     
@@ -272,12 +274,12 @@ open class WZRichTextView: UIView {
     return size
   }
   
-  public class func calculateSize(with richTextView: WZRichTextView, withMaxWidth maxWidth: CGFloat) -> CGSize {
+  public class func calculateSize(richTextView: WZRichTextView, maxWidth: CGFloat) -> CGSize {
   
-    return calculateSize(with: richTextView.text, with: richTextView.textStyle, with: richTextView.interpreters, with: maxWidth)
+    return calculateSize(text: richTextView.text, textStyle: richTextView.textStyle, interpreters: richTextView.interpreters, maxWidth: maxWidth)
   }
   
-  private class func createAttributedString(with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter]) -> NSMutableAttributedString {
+  private class func createAttributedString(text: String, textStyle: WZTextStyle, interpreters: [Interpreter]) -> NSMutableAttributedString {
     
     var attributesDic: [String: AnyObject] = [:]
     
@@ -289,7 +291,7 @@ open class WZRichTextView: UIView {
     
     var paragraphStyleSettings: [CTParagraphStyleSetting] = []
     var textAlignment: CTTextAlignment = textStyle.textAlignment
-    var lineBreakMode: CTLineBreakMode = .byWordWrapping
+    var lineBreakMode: CTLineBreakMode = textStyle.lineBreakMode
     
     paragraphStyleSettings += [CTParagraphStyleSetting(spec: .alignment, valueSize: MemoryLayout.size(ofValue: textAlignment), value: &textAlignment)]
     paragraphStyleSettings += [CTParagraphStyleSetting(spec: .lineBreakMode, valueSize: MemoryLayout.size(ofValue: lineBreakMode), value: &lineBreakMode)]
@@ -308,13 +310,13 @@ open class WZRichTextView: UIView {
     return attributedString
   }
   
-  private class func calculateOffsetForVerticalCenter(with imageSize: CGSize, with text: String, with textStyle: WZTextStyle, with interpreters: [Interpreter]) -> CGFloat {
+  private class func calculateOffsetForVerticalCenter(imageSize: CGSize, text: String, textStyle: WZTextStyle, interpreters: [Interpreter]) -> CGFloat {
     
     guard textStyle.isVerticalCenter else {
       return 0
     }
     
-    let textSize = calculateSize(with: text, with: textStyle, with: interpreters, with: imageSize.width)
+    let textSize = calculateSize(text: text, textStyle: textStyle, interpreters: interpreters, maxWidth: imageSize.width)
     
     let yOffset = (imageSize.height - textSize.height) / 2
     
