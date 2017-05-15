@@ -2,8 +2,8 @@
 //  PictureInterpreter.swift
 //  WZRichTextViewProject
 //
-//  Created by 范祎楠 on 16/9/29.
-//  Copyright © 2016年 范祎楠. All rights reserved.
+//  Created by fanyinan on 16/9/29.
+//  Copyright © 2016年 fanyinan. All rights reserved.
 //
 
 import UIKit

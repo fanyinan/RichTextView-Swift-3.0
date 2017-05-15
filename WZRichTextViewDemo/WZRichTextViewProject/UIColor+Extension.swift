@@ -2,8 +2,8 @@
 //  MuColor.swift
 //  MuMu
 //
-//  Created by 范祎楠 on 15/4/9.
-//  Copyright (c) 2015年 范祎楠. All rights reserved.
+//  Created by fanyinan on 15/4/9.
+//  Copyright (c) 2015年 fanyinan. All rights reserved.
 //
 
 import UIKit
