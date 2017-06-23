@@ -17,7 +17,11 @@ public class HTMLInterpreter: NSObject, Interpreter {
     
     let text = richText.string
     
-    let htmlText = try! NSMutableAttributedString(data: text.data(using: String.Encoding.unicode)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+    guard !text.isEmpty else { return }
+    guard let data = text.data(using: String.Encoding.unicode) else { return }
+    
+    //iOS8预加载html类的消息崩溃, 不允许在主线程初始化NSAttributedString
+    guard let htmlText = try? NSMutableAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil) else { return }
     
     if !isUseHtmlStyle {
      
