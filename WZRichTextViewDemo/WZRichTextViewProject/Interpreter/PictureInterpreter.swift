@@ -74,7 +74,7 @@ public class PictureInterpreter: NSObject, Interpreter {
       let insertSpace = NSMutableAttributedString(string: "*")
       //将空白格的attributes设置为之前字符串的attributes
       insertSpace.addAttributes(picturePlaceholderAttributes, range: NSRange(location: 0, length: insertSpace.length))
-      insertSpace.addAttribute(kCTForegroundColorAttributeName as String, value: UIColor.clear.cgColor, range: NSRange(location: 0, length: 1))
+      insertSpace.addAttribute(NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String as String), value: UIColor.clear.cgColor, range: NSRange(location: 0, length: 1))
       
       let imageMaxSize = CGSize(width: textStyle.font.lineHeight, height: textStyle.font.lineHeight)
       var imageSize = delegate?.pictureInterpreter(pictureInterpreter: self, pictureSizeAt: range.location, with: imageMaxSize) ?? imageMaxSize
@@ -83,11 +83,11 @@ public class PictureInterpreter: NSObject, Interpreter {
       let pictureRunInfo = PictureRunInfo(ascender: textStyle.font.ascender + extraHeight, descender: -textStyle.font.descender + extraHeight, width: imageSize.width + imageHoriMargin * 2)
       pictureRunInfos += [pictureRunInfo]
       let runDelegate = CTRunDelegateCreate(&runDelegateCallbacks, unsafeBitCast(pictureRunInfo, to: UnsafeMutableRawPointer.self))
-      insertSpace.addAttribute(kCTRunDelegateAttributeName as String, value: runDelegate!, range: NSRange(location: 0, length: insertSpace.length))
+      insertSpace.addAttribute(NSAttributedStringKey(rawValue: kCTRunDelegateAttributeName as String as String), value: runDelegate!, range: NSRange(location: 0, length: insertSpace.length))
       
       let imageName = (text as NSString).substring(with: NSRange(location: range.location + 1, length: range.length - 2))
       
-      insertSpace.addAttribute(keyAttributeName, value: imageName, range: NSRange(location: 0, length: insertSpace.length))
+      insertSpace.addAttribute(NSAttributedStringKey(rawValue: keyAttributeName), value: imageName, range: NSRange(location: 0, length: insertSpace.length))
       richText.insert(insertSpace, at: range.location)
       
     }

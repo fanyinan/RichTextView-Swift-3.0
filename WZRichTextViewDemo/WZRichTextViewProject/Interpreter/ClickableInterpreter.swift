@@ -30,11 +30,11 @@ public class ClickableInterpreter: NSObject, Interpreter {
     
     for result in results.reversed() {
       
-      let startTagRange = result.rangeAt(1)
-      let startTagTextRange = result.rangeAt(2)
-      let keyWordRange = result.rangeAt(3)
-      let endTagRange = result.rangeAt(4)
-      let endTagTextRange = result.rangeAt(5)
+      let startTagRange = result.range(at: 1)
+      let startTagTextRange = result.range(at: 2)
+      let keyWordRange = result.range(at: 3)
+      let endTagRange = result.range(at: 4)
+      let endTagTextRange = result.range(at: 5)
 
       let keyWord = (text as NSString).substring(with: keyWordRange)
       let startTag = (text as NSString).substring(with: startTagTextRange)
@@ -45,11 +45,11 @@ public class ClickableInterpreter: NSObject, Interpreter {
       richText.deleteCharacters(in: endTagRange)
       richText.deleteCharacters(in: startTagRange)
 
-      richText.addAttribute(keyAttributeName, value: startTag, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
+      richText.addAttribute(NSAttributedStringKey(rawValue: keyAttributeName), value: startTag, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
       
       if let keyTextNormalForegroundColor = keyTextNormalForegroundColor {
         
-        richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
+        richText.addAttribute(NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String as String), value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
 
       }
     }
@@ -62,8 +62,8 @@ public class ClickableInterpreter: NSObject, Interpreter {
   public func editAttributedStringOnTouchDown(with richText: NSMutableAttributedString, in ranges: [NSRange]) {
     for range in ranges {
       
-      richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextSelectedForegroundColor.cgColor, range: range)
-      richText.addAttribute(NSBackgroundColorAttributeName as String, value: keyTextSelectedBackgroundColor.cgColor, range: range)
+      richText.addAttribute(NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String), value: keyTextSelectedForegroundColor.cgColor, range: range)
+      richText.addAttribute(NSAttributedStringKey.backgroundColor, value: keyTextSelectedBackgroundColor, range: range)
       
     }
   }

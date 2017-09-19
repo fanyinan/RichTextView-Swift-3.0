@@ -67,7 +67,7 @@ class WZRichTextCache {
     //确定interpreter的顺序
     for (index, interpreter) in interpreters.enumerated() {
       
-      let type: String = "\(type(of: interpreter))"
+      let type: String = "\(Swift.type(of: interpreter))"
       
       interpreterKey ^= type.hashValue << index
       

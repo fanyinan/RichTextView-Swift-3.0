@@ -188,14 +188,14 @@ open class WZRichTextView: UIView {
         
         for interpreter in interpreters {
           
-          let type = type(of: interpreter)
+          let type = Swift.type(of: interpreter)
           let attributeName = "\(WZRichTextView.keyAttributeName)-\(type)"
           
           var attributeRange = NSRange(location: 0, length: 0)
           
-          guard let keyAttributeValue = attributedString.attribute(attributeName, at: runRange.location, effectiveRange: &attributeRange) else { continue }
+          guard let keyAttributeValue = attributedString.attribute(NSAttributedStringKey(rawValue: attributeName), at: runRange.location, effectiveRange: &attributeRange) else { continue }
           
-          currentKeyInfoDict[NSValue(cgRect: touchableRect)] = WZRichTextRunInfo(range: attributeRange, attributeValue: keyAttributeValue, classType: type(of: interpreter))
+          currentKeyInfoDict[NSValue(cgRect: touchableRect)] = WZRichTextRunInfo(range: attributeRange, attributeValue: keyAttributeValue, classType: Swift.type(of: interpreter))
           
           interpreter.draw(in: context, with: runRect, with: keyAttributeValue)
           
@@ -281,13 +281,13 @@ open class WZRichTextView: UIView {
   
   private class func createAttributedString(text: String, textStyle: WZTextStyle, interpreters: [Interpreter]) -> NSMutableAttributedString {
     
-    var attributesDic: [String: AnyObject] = [:]
+    var attributesDic: [NSAttributedStringKey: AnyObject] = [:]
     
     let font = textStyle.font
-    let fontRef: CTFont = CTFontCreateWithName(font.fontName as CFString?, font.pointSize, nil)
-    attributesDic[kCTFontAttributeName as String] = fontRef
+    let fontRef: CTFont = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
+    attributesDic[kCTFontAttributeName as NSAttributedStringKey] = fontRef
     
-    attributesDic[kCTForegroundColorAttributeName as String] = textStyle.textColor.cgColor
+    attributesDic[kCTForegroundColorAttributeName as NSAttributedStringKey] = textStyle.textColor.cgColor
     
     var paragraphStyleSettings: [CTParagraphStyleSetting] = []
     var textAlignment: CTTextAlignment = textStyle.textAlignment
@@ -298,12 +298,12 @@ open class WZRichTextView: UIView {
     paragraphStyleSettings += [CTParagraphStyleSetting(spec: .maximumLineSpacing, valueSize: MemoryLayout.size(ofValue: textStyle.lineSpace), value: &textStyle.lineSpace)]
     paragraphStyleSettings += [CTParagraphStyleSetting(spec: .minimumLineSpacing, valueSize: MemoryLayout.size(ofValue: textStyle.lineSpace), value: &textStyle.lineSpace)]
     let paragraphStyle = CTParagraphStyleCreate(paragraphStyleSettings, paragraphStyleSettings.count)
-    attributesDic[kCTParagraphStyleAttributeName as String] = paragraphStyle
+    attributesDic[kCTParagraphStyleAttributeName as NSAttributedStringKey] = paragraphStyle
     
     let attributedString = NSMutableAttributedString(string: text, attributes: attributesDic)
-    
+
     for interpreter in interpreters {
-      let type = type(of: interpreter)
+      let type = Swift.type(of: interpreter)
       interpreter.interpret(with: attributedString, with: textStyle, with: "\(WZRichTextView.keyAttributeName)-\(type)")
     }
     

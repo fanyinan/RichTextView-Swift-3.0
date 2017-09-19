@@ -27,8 +27,8 @@ public class URLInterpreter: NSObject, Interpreter {
       let url = (text as NSString).substring(with: range)
       
       let attributeRange = NSRange(location: range.location, length: url.characters.count)
-      richText.addAttribute(keyAttributeName, value: url, range: attributeRange)
-      richText.addAttribute(kCTForegroundColorAttributeName as String, value: keyTextNormalBackgroundColor.cgColor, range: attributeRange)
+      richText.addAttribute(NSAttributedStringKey(rawValue: keyAttributeName), value: url, range: attributeRange)
+      richText.addAttribute(NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String as String), value: keyTextNormalBackgroundColor.cgColor, range: attributeRange)
       
     }
   }
@@ -37,7 +37,7 @@ public class URLInterpreter: NSObject, Interpreter {
     
     for range in ranges {
       
-      richText.addAttribute(NSBackgroundColorAttributeName as String, value: keyTextSelectedBackgroundColor.cgColor, range: range)
+      richText.addAttribute(NSAttributedStringKey.backgroundColor, value: keyTextSelectedBackgroundColor.cgColor, range: range)
       
     }
   }

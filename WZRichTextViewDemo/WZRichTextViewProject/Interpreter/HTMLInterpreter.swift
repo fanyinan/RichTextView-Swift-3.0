@@ -21,7 +21,7 @@ public class HTMLInterpreter: NSObject, Interpreter {
     guard let data = text.data(using: String.Encoding.unicode) else { return }
     
     //iOS8预加载html类的消息崩溃, 不允许在主线程初始化NSAttributedString
-    guard let htmlText = try? NSMutableAttributedString(data: data, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil) else { return }
+    guard let htmlText = try? NSMutableAttributedString(data: data, options: [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) else { return }
     
     if !isUseHtmlStyle {
      
@@ -82,7 +82,7 @@ public class HTMLInterpreter: NSObject, Interpreter {
       //找到此序号的文本
       let range = (richText.string as NSString).ranges(of: content)[index]
       
-      richText.removeAttribute(kCTUnderlineStyleAttributeName as String, range: range)
+      richText.removeAttribute(NSAttributedStringKey(rawValue: kCTUnderlineStyleAttributeName as String as String), range: range)
       richText.insert(NSAttributedString(string: "</>"), at: range.location + range.length)
       richText.insert(NSAttributedString(string: "<\(href)>"), at: range.location)
 
