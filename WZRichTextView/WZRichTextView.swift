@@ -26,8 +26,9 @@ open class WZRichTextView: UIView {
     }
   }
   
-  static let keyAttributeName = "keyAttributeName"
-  
+  static private let keyAttributeName = "keyAttributeName"
+  static private let semaphore = DispatchSemaphore(value: 1)
+
   public init() {
     super.init(frame: CGRect.zero)
   }
@@ -281,6 +282,8 @@ open class WZRichTextView: UIView {
   
   private class func createAttributedString(text: String, textStyle: WZTextStyle, interpreters: [Interpreter]) -> NSMutableAttributedString {
     
+    semaphore.wait()
+    
     var attributesDic: [NSAttributedStringKey: AnyObject] = [:]
     
     let font = textStyle.font
@@ -306,6 +309,8 @@ open class WZRichTextView: UIView {
       let type = Swift.type(of: interpreter)
       interpreter.interpret(with: attributedString, with: textStyle, with: "\(WZRichTextView.keyAttributeName)-\(type)")
     }
+    
+    semaphore.signal()
     
     return attributedString
   }
