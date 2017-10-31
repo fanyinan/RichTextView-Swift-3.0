@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
 
-  A richTextView that is easy to expand
+  A richTextView that is easy to expand.
 
                    DESC
 
@@ -70,7 +70,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "http://test.game.xiaoyouapp.cn:20080/iOS/RichTextView.git", :branch => 'master' }
+  s.source       = { :git => "http://test.game.xiaoyouapp.cn:20080/iOS/RichTextView.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
