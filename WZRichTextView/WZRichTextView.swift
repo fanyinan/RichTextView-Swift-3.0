@@ -268,8 +268,6 @@ open class WZRichTextView: UIView {
     
     var size = CTFramesetterSuggestFrameSizeWithConstraints(frameSetter, CFRange(location: 0, length: 0), nil, CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude), nil)
     
-    size.width = linesCount == 1 ? size.width : maxWidth
-    
     WZRichTextCache.sharedCache.cachedRichTextSize(with: text, with: textStyle, with: interpreters, with: maxWidth, with: size)
     
     return size
@@ -292,6 +290,13 @@ open class WZRichTextView: UIView {
     
     attributesDic[kCTForegroundColorAttributeName as NSAttributedStringKey] = textStyle.textColor.cgColor
     
+    let attributedString = NSMutableAttributedString(string: text, attributes: attributesDic)
+    
+    for interpreter in interpreters {
+      let type = Swift.type(of: interpreter)
+      interpreter.interpret(with: attributedString, with: textStyle, with: "\(WZRichTextView.keyAttributeName)-\(type)")
+    }
+    
     var paragraphStyleSettings: [CTParagraphStyleSetting] = []
     var textAlignment: CTTextAlignment = textStyle.textAlignment
     var lineBreakMode: CTLineBreakMode = textStyle.lineBreakMode
@@ -303,12 +308,7 @@ open class WZRichTextView: UIView {
     let paragraphStyle = CTParagraphStyleCreate(paragraphStyleSettings, paragraphStyleSettings.count)
     attributesDic[kCTParagraphStyleAttributeName as NSAttributedStringKey] = paragraphStyle
     
-    let attributedString = NSMutableAttributedString(string: text, attributes: attributesDic)
-
-    for interpreter in interpreters {
-      let type = Swift.type(of: interpreter)
-      interpreter.interpret(with: attributedString, with: textStyle, with: "\(WZRichTextView.keyAttributeName)-\(type)")
-    }
+    attributedString.addAttribute(kCTParagraphStyleAttributeName as NSAttributedStringKey, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
     
     semaphore.signal()
     
@@ -327,5 +327,4 @@ open class WZRichTextView: UIView {
     
     return yOffset
   }
-  
 }

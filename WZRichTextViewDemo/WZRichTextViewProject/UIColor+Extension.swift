@@ -1,6 +1,6 @@
 //
 //  MuColor.swift
-//  MuMu
+//  WZRichTextViewProject
 //
 //  Created by fanyinan on 15/4/9.
 //  Copyright (c) 2015年 fanyinan. All rights reserved.

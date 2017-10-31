@@ -17,7 +17,7 @@ class ViewDemoViewController: UIViewController {
   //解析html中的超链接，同时添加点击事件
   //需要HTMLInterpreter和ClickableInterpreter
   //HTMLInterpreter需要设置isParserHerf为true
-  let str2 = "系统有何建议，需要客服为您服务么？ <a href=\"jump_kf\">联系客服</a>"
+  let str2 = "同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸同加我摸摸女摸摸摸"
   let str4 = "系统有何建议，需要客服为您服务么？ <a href=\"join_group\">联系客服</a>"
 
   let str1 = "送[timg-4][timg-4][timg-4]实现。[timg-4]<a>粉丝及开发</>新的<b>传感器</b>成像</b>像细节</>"
@@ -32,7 +32,7 @@ class ViewDemoViewController: UIViewController {
   
   func setupUI() {
     
-    let testStr = str
+    let testStr = str2
     let clickableInterpreter = ClickableInterpreter()
     clickableInterpreter.delegate = self
     clickableInterpreter.keyTextNormalForegroundColor = UIColor.yellow
