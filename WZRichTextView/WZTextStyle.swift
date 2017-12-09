@@ -18,7 +18,9 @@ public class WZTextStyle: Hashable {
   public var lineBreakMode: CTLineBreakMode = .byCharWrapping
   public var isVerticalCenter = false
   public var isShowRunRect = false
-
+  
+  var attributes: [NSAttributedStringKey: (Any, NSRange)] = [:]
+  
   public init() { }
   
   public var hashValue: Int {
@@ -39,4 +41,20 @@ public class WZTextStyle: Hashable {
     return lhs.hashValue == rhs.hashValue
   }
   
+  public func addAttribute(_ name: NSAttributedStringKey, value: Any, range: NSRange) {
+    
+    switch name {
+    case NSAttributedStringKey.foregroundColor:
+      if let color = value as? UIColor {
+        attributes[NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String)] = (color.cgColor, range)
+      }
+    case NSAttributedStringKey.font:
+      if let font = value as? UIFont {
+        let fontRef: CTFont = CTFontCreateWithName(font.fontName as CFString, font.pointSize, nil)
+        attributes[NSAttributedStringKey(rawValue: kCTFontAttributeName as String)] = (fontRef, range)
+      }
+    default:
+      attributes[name] = (value, range)
+    }
+  }
 }

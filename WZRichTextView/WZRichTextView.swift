@@ -261,12 +261,8 @@ open class WZRichTextView: UIView {
     
     let path = CGMutablePath()
     path.addRect(CGRect(origin: CGPoint.zero, size: CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude)))
-    let frameRef = CTFramesetterCreateFrame(frameSetter, CFRange(location: 0, length: CFAttributedStringGetLength(attributedString)), path, nil)
     
-    let lines = CTFrameGetLines(frameRef)
-    let linesCount = CFArrayGetCount(lines)
-    
-    var size = CTFramesetterSuggestFrameSizeWithConstraints(frameSetter, CFRange(location: 0, length: 0), nil, CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude), nil)
+    let size = CTFramesetterSuggestFrameSizeWithConstraints(frameSetter, CFRange(location: 0, length: 0), nil, CGSize(width: maxWidth, height: CGFloat.greatestFiniteMagnitude), nil)
     
     WZRichTextCache.sharedCache.cachedRichTextSize(with: text, with: textStyle, with: interpreters, with: maxWidth, with: size)
     
@@ -309,6 +305,7 @@ open class WZRichTextView: UIView {
     attributesDic[kCTParagraphStyleAttributeName as NSAttributedStringKey] = paragraphStyle
     
     attributedString.addAttribute(kCTParagraphStyleAttributeName as NSAttributedStringKey, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+    textStyle.attributes.forEach({ attributedString.addAttribute($0, value: $1.0, range: $1.1) })
     
     semaphore.signal()
     

@@ -50,8 +50,12 @@ class ViewDemoViewController: UIViewController {
     let textStyle = WZTextStyle()
     textStyle.backgroundColor = UIColor.green
     textStyle.isVerticalCenter = true
-    textStyle.textColor = UIColor.gray
+    textStyle.textColor = UIColor.red
     textStyle.font = UIFont.systemFont(ofSize: 12)
+    textStyle.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSRange(location: 10, length:5))
+    textStyle.addAttribute(NSAttributedStringKey.font, value: UIFont.systemFont(ofSize: 20), range: NSRange(location: 30, length:5))
+    textStyle.addAttribute(NSAttributedStringKey.backgroundColor, value: UIColor.purple, range: NSRange(location: 30, length:5))
+
 //    textStyle.isShowRunRect = true
 
 //    textStyle.textAlignment = .center

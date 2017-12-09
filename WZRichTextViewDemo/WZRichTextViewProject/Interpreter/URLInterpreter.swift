@@ -26,7 +26,7 @@ public class URLInterpreter: NSObject, Interpreter {
       
       let url = (text as NSString).substring(with: range)
       
-      let attributeRange = NSRange(location: range.location, length: url.characters.count)
+      let attributeRange = NSRange(location: range.location, length: url.count)
       richText.addAttribute(NSAttributedStringKey(rawValue: keyAttributeName), value: url, range: attributeRange)
       richText.addAttribute(NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String as String), value: keyTextNormalBackgroundColor.cgColor, range: attributeRange)
       

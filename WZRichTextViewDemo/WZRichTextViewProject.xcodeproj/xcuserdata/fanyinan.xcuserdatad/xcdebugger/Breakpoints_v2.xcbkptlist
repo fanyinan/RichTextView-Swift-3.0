@@ -13,5 +13,53 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../WZRichTextView/WZRichTextView.swift"
+            timestampString = "534482885.339926"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "createAttributedString(text:textStyle:interpreters:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static WZRichTextViewProject.WZRichTextView.(createAttributedString in _CE7AFE64BAF4B85F6C8B8AC1B3CA059A)(text: Swift.String, textStyle: WZRichTextViewProject.WZTextStyle, interpreters: Swift.Array&lt;WZRichTextViewProject.Interpreter&gt;) -&gt; __ObjC.NSMutableAttributedString"
+                  moduleName = "WZRichTextViewProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fanyinan/Documents/MyGitHubProjects/WZRichTextView/WZRichTextView/WZRichTextView.swift"
+                  timestampString = "534480707.500878"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "308"
+                  endingLineNumber = "308"
+                  offsetFromSymbolStart = "5572">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.NSAttributedStringKey, (Any, __C._NSRange)) -&gt; () in static WZRichTextViewProject.WZRichTextView.(createAttributedString in _CE7AFE64BAF4B85F6C8B8AC1B3CA059A)(text: Swift.String, textStyle: WZRichTextViewProject.WZTextStyle, interpreters: Swift.Array&lt;WZRichTextViewProject.Interpreter&gt;) -&gt; __ObjC.NSMutableAttributedString"
+                  moduleName = "WZRichTextViewProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/fanyinan/Documents/MyGitHubProjects/WZRichTextView/WZRichTextView/WZRichTextView.swift"
+                  timestampString = "534480707.505666"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "308"
+                  endingLineNumber = "308"
+                  offsetFromSymbolStart = "103">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

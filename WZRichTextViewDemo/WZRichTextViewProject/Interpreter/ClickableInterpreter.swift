@@ -45,11 +45,11 @@ public class ClickableInterpreter: NSObject, Interpreter {
       richText.deleteCharacters(in: endTagRange)
       richText.deleteCharacters(in: startTagRange)
 
-      richText.addAttribute(NSAttributedStringKey(rawValue: keyAttributeName), value: startTag, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
+      richText.addAttribute(NSAttributedStringKey(rawValue: keyAttributeName), value: startTag, range: NSRange(location: startTagRange.location, length: keyWord.count))
       
       if let keyTextNormalForegroundColor = keyTextNormalForegroundColor {
         
-        richText.addAttribute(NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String as String), value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: startTagRange.location, length: keyWord.characters.count))
+        richText.addAttribute(NSAttributedStringKey(rawValue: kCTForegroundColorAttributeName as String), value: keyTextNormalForegroundColor.cgColor, range: NSRange(location: startTagRange.location, length: keyWord.count))
 
       }
     }

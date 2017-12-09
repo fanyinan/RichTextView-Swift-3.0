@@ -21,7 +21,7 @@ extension UIColor {
     var cString : String = stringToConvert.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
     // String should be 6 or 8 characters
     
-    if cString.characters.count < 6 {
+    if cString.count < 6 {
       return UIColor.black
     }
     
@@ -31,7 +31,7 @@ extension UIColor {
     if cString.hasPrefix("#"){
       cString = NSString(string: cString).substring(from: 1)
     }
-    if cString.characters.count != 6{
+    if cString.count != 6{
       return UIColor.black
     }
     // Separate into r, g, b substrings
